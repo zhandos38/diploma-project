@@ -54,7 +54,7 @@ class Rup extends \yii\db\ActiveRecord
             'degree' => 'Степень',
             'year' => 'Год',
             'mode' => 'Вид',
-            'direction' => 'Направление',
+            'direction' => 'Направление подготовки',
             'education' => 'Образование',
         ];
     }
