@@ -1,7 +1,9 @@
 <?php
 
+use common\models\Group;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -22,22 +24,44 @@ $this->params['breadcrumbs'][] = $this->title;
         'title' => $this->title
     ]) ?>
 
+    <?php $columns = [
+        ['class' => 'yii\grid\SerialColumn'],
+
+        'name',
+        'language',
+        [
+            'attribute' => 'degree',
+            'value' => function(Group $model) {
+                return $model->getDegreeLabel();
+            }
+        ],
+        'mode',
+        'enter_year',
+        [
+            'attribute' => 'specialty_id',
+            'value' => function(Group $model) {
+                return $model->specialty->name;
+            }
+        ],
+        [
+            'attribute' => 'rup_id',
+            'value' => function(Group $model) {
+                return $model->rup->specialty->name . ' - ' . $model->rup->year . ' - ' . $model->rup->language;
+            }
+        ],
+
+        ['class' => 'yii\grid\ActionColumn'],
+    ]; ?>
+
+    <?= ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $columns
+    ]); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'name',
-            'language',
-            'degree',
-            'mode',
-            'enter_year',
-            'specialty_id',
-            'rup_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+        'columns' => $columns,
     ]); ?>
 
     <?php LteBox::end() ?>

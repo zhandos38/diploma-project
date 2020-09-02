@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "teacher".
@@ -21,6 +22,10 @@ use Yii;
  */
 class Teacher extends \yii\db\ActiveRecord
 {
+    const BACHELOR = 0;
+    const MASTER = 1;
+    const DOCTOR = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -67,5 +72,17 @@ class Teacher extends \yii\db\ActiveRecord
     public function getTeachersLoads()
     {
         return $this->hasMany(TeachersLoad::className(), ['teacher_id' => 'id']);
+    }
+
+    public static function getDegrees() {
+        return [
+            self::BACHELOR => 'Бакалавр',
+            self::MASTER => 'Магистр',
+            self::DOCTOR => 'Доктор'
+        ];
+    }
+
+    public function getDegreeLabel() {
+        return ArrayHelper::getValue(self::getDegrees(), $this->degree);
     }
 }

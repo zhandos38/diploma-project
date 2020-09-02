@@ -1,9 +1,12 @@
 <?php
 
+use common\models\Group;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Student */
@@ -28,11 +31,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'patronymic')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'group_id')->textInput() ?>
+    <?= $form->field($model, 'group_id')->dropDownList(ArrayHelper::map(Group::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите группу']) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'phone')->widget(MaskedInput::className(), [
+        'mask' => '+7(999)999-99-99',
+        'clientOptions' => [
+            'removeMaskOnSubmit' => true
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'phone_parent')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'phone_parent')->widget(MaskedInput::className(), [
+        'mask' => '+7(999)999-99-99',
+        'clientOptions' => [
+            'removeMaskOnSubmit' => true
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'iin')->textInput(['maxlength' => true]) ?>
 

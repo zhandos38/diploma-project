@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'patronymic')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'degree')->textInput() ?>
+    <?= $form->field($model, 'degree')->dropDownList(\common\models\Teacher::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
 
     <?= $form->field($model, 'degree_extra')->textInput() ?>
 

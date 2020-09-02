@@ -24,17 +24,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'language')->dropDownList(\common\models\Language::getAll(), ['prompt' => 'Выберите язык']) ?>
 
-    <?= $form->field($model, 'degree')->textInput() ?>
+    <?= $form->field($model, 'degree')->dropDownList(\common\models\Group::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
 
     <?= $form->field($model, 'mode')->textInput() ?>
 
     <?= $form->field($model, 'enter_year')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'specialty_id')->textInput() ?>
+    <?= $form->field($model, 'specialty_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите специальность']) ?>
 
-    <?= $form->field($model, 'rup_id')->textInput() ?>
+    <?= $form->field($model, 'rup_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите РУП']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
