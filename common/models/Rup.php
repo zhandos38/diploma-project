@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "rup".
@@ -22,6 +23,9 @@ use Yii;
  */
 class Rup extends \yii\db\ActiveRecord
 {
+    const MODE_DAY = 1;
+    const MODE_EVENING = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -49,11 +53,11 @@ class Rup extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'specialty_id' => 'Предмет',
+            'specialty_id' => 'Спецаиальность',
             'language' => 'Язык',
             'degree' => 'Степень',
             'year' => 'Год',
-            'mode' => 'Вид',
+            'mode' => 'Форма обучения',
             'direction' => 'Направление подготовки',
             'education' => 'Образование',
         ];
@@ -87,5 +91,18 @@ class Rup extends \yii\db\ActiveRecord
     public function getRupSubjects()
     {
         return $this->hasMany(RupSubject::className(), ['rup_id' => 'id']);
+    }
+
+    public static function getModes()
+    {
+        return [
+            self::MODE_DAY => 'Дневная форма',
+            self::MODE_EVENING => 'Вечерняя форма',
+        ];
+    }
+
+    public function getMode()
+    {
+        return ArrayHelper::getValue(self::getModes(), $this->mode);
     }
 }

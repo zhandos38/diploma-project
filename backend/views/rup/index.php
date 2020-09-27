@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Rup;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use yii\helpers\Html;
@@ -29,10 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'specialty_id',
-            'language',
             'degree',
+            [
+                'attribute' => 'mode',
+                'value' => function(Rup $model) {
+                    return $model->getMode();
+                },
+                'filter' => Rup::getModes()
+            ],
+            'language',
             'year',
-            'mode',
             'direction',
             'education',
 
