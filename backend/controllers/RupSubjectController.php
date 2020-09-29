@@ -62,12 +62,13 @@ class RupSubjectController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($rup)
     {
         $model = new RupSubject();
+        $model->rup_id = $rup;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
         return $this->render('create', [

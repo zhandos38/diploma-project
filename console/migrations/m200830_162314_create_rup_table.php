@@ -19,7 +19,7 @@ class m200830_162314_create_rup_table extends Migration
             'specialty_id' => $this->integer(),
             'language' => $this->string(2),
             'degree' => $this->tinyInteger(2),
-            'year' => $this->tinyInteger(4),
+            'year' => $this->string(4),
             'mode' => $this->tinyInteger(2),
             'direction' => $this->tinyInteger(2),
             'education' => $this->integer()

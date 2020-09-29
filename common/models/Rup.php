@@ -14,10 +14,12 @@ use yii\helpers\ArrayHelper;
  * @property int|null $degree
  * @property int|null $year
  * @property int|null $mode
- * @property int|null $direction
- * @property int|null $education
+ * @property int|null $direction_id
+ * @property int|null $education_id
  *
  * @property Group[] $groups
+ * @property Education[] $education
+ * @property EducationDirection[] $direction
  * @property Specialty $specialty
  * @property RupSubject[] $rupSubjects
  */
@@ -40,7 +42,7 @@ class Rup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['specialty_id', 'degree', 'year', 'mode', 'direction', 'education'], 'integer'],
+            [['specialty_id', 'degree', 'year', 'mode', 'direction_id', 'education_id'], 'integer'],
             [['language'], 'string', 'max' => 2],
             [['specialty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['specialty_id' => 'id']],
         ];
@@ -58,8 +60,8 @@ class Rup extends \yii\db\ActiveRecord
             'degree' => 'Степень',
             'year' => 'Год',
             'mode' => 'Форма обучения',
-            'direction' => 'Направление подготовки',
-            'education' => 'Образование',
+            'direction_id' => 'Направление подготовки',
+            'education_id' => 'Образование',
         ];
     }
 
@@ -91,6 +93,22 @@ class Rup extends \yii\db\ActiveRecord
     public function getRupSubjects()
     {
         return $this->hasMany(RupSubject::className(), ['rup_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDirection()
+    {
+        return $this->hasOne(EducationDirection::className(), ['id' => 'direction_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEducation()
+    {
+        return $this->hasOne(Education::className(), ['id' => 'education_id']);
     }
 
     public static function getModes()

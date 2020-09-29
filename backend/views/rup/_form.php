@@ -22,19 +22,43 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'specialty_id')->textInput() ?>
-
-    <?= $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'degree')->textInput() ?>
-
-    <?= $form->field($model, 'year')->textInput() ?>
-
-    <?= $form->field($model, 'mode')->textInput() ?>
-
-    <?= $form->field($model, 'direction')->textInput() ?>
-
-    <?= $form->field($model, 'education')->textInput() ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'specialty_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите степень']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'degree')->dropDownList(\common\models\Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'language')->dropDownList(\common\models\Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'direction')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\EducationDirection::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите направление образование']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'education')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Education::find()->asArray()->all(),'id', 'name'), ['prompt' => 'Выберите образование']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'mode')->dropDownList(\common\models\Rup::getModes(), ['prompt' => 'Выберите форму обучение']) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'year')->dropDownList([
+                2020 => '2020',
+                2021 => '2021',
+                2022 => '2022',
+                2023 => '2023',
+                2024 => '2024',
+                2025 => '2025',
+                2026 => '2026',
+                2027 => '2027',
+                2028 => '2028',
+                2029 => '2029',
+                2030 => '2030'
+            ], [
+                'prompt' => 'Выберите год'
+            ]) ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

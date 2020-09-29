@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => Teacher::getDegrees()
         ],
         //'degree_extra',
-        //'is_head',
-        //'is_pps',
+        'is_head',
+        'is_pps',
         //'state',
 
         ['class' => 'yii\grid\ActionColumn'],

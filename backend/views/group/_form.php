@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'language')->dropDownList(\common\models\Language::getAll(), ['prompt' => 'Выберите язык']) ?>
 
-    <?= $form->field($model, 'degree')->dropDownList(\common\models\Group::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
+    <?= $form->field($model, 'degree')->dropDownList(\common\models\Degree::getAll(), ['prompt' => 'Выбрите степень']) ?>
 
     <?= $form->field($model, 'mode')->textInput() ?>
 

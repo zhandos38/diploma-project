@@ -17,7 +17,7 @@ class RupSearch extends Rup
     public function rules()
     {
         return [
-            [['id', 'specialty_id', 'degree', 'year', 'mode', 'direction', 'education'], 'integer'],
+            [['id', 'specialty_id', 'degree', 'year', 'mode', 'direction_id', 'education_id'], 'integer'],
             [['language'], 'safe'],
         ];
     }
@@ -63,8 +63,8 @@ class RupSearch extends Rup
             'degree' => $this->degree,
             'year' => $this->year,
             'mode' => $this->mode,
-            'direction' => $this->direction,
-            'education' => $this->education,
+            'direction_id' => $this->direction,
+            'education_id' => $this->education,
         ]);
 
         $query->andFilterWhere(['like', 'language', $this->language]);

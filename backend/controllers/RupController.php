@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\RupSubjectSearch;
 use Yii;
 use common\models\Rup;
 use backend\models\RupSearch;
@@ -67,7 +68,7 @@ class RupController extends Controller
         $model = new Rup();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -90,8 +91,13 @@ class RupController extends Controller
             return $this->redirect(['index']);
         }
 
+        $searchModel = new RupSubjectSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('update', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -101,6 +107,8 @@ class RupController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

@@ -22,11 +22,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'rup_id')->textInput() ?>
+    <?= $form->field($model, 'subject_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Subject::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите предмет']) ?>
 
-    <?= $form->field($model, 'subject_id')->textInput() ?>
-
-    <?= $form->field($model, 'semester')->textInput() ?>
+    <?= $form->field($model, 'semester')->dropDownList(\common\models\Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
 
     <?= $form->field($model, 'amount_lecture')->textInput() ?>
 
@@ -34,11 +32,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'amount_lab')->textInput() ?>
 
-    <?= $form->field($model, 'is_course_work')->textInput() ?>
+    <?= $form->field($model, 'is_course_work')->checkbox() ?>
 
-    <?= $form->field($model, 'is_gos')->textInput() ?>
+    <?= $form->field($model, 'is_gos')->checkbox() ?>
 
-    <?= $form->field($model, 'is_exam')->textInput() ?>
+    <?= $form->field($model, 'is_exam')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
