@@ -21,7 +21,7 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Diploma</b> Project</a>
+        <a href="#">Academ<b>Pro</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -47,6 +47,11 @@ $fieldOptions2 = [
             </div>
             <div class="col-xs-4">
                 <?= Html::submitButton('Вход', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                Нет аккаунта? <a href="<?= \yii\helpers\Url::to(['site/signup']) ?>">Зарегистрироватся</a>
             </div>
         </div>
 

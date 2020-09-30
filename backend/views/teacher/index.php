@@ -38,9 +38,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => Teacher::getDegrees()
         ],
         //'degree_extra',
-        'is_head',
-        'is_pps',
-        //'state',
+        [
+            'attribute' => 'is_head',
+            'value' => function(Teacher $model) {
+                return $model->is_head ? "Да" : "Нет";
+            },
+            'filter' => [
+                0 => "Нет",
+                1 => "Да"
+            ]
+        ],
+        [
+            'attribute' => 'is_pps',
+            'value' => function(Teacher $model) {
+                return $model->is_pps ? "Да" : "Нет";
+            },
+            'filter' => [
+                0 => "Нет",
+                1 => "Да"
+            ]
+        ],
+        'state',
 
         ['class' => 'yii\grid\ActionColumn'],
     ] ?>

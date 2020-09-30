@@ -44,6 +44,8 @@ class Group extends \yii\db\ActiveRecord
             [['enter_year'], 'string', 'max' => 4],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['specialty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['specialty_id' => 'id']],
+
+            [['name', 'language', 'degree', 'enter_year', 'speciality_id'], 'required']
         ];
     }
 
@@ -55,10 +57,10 @@ class Group extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Наименование',
-            'language' => 'Язык',
+            'language' => 'Язык обучение',
             'degree' => 'Степень',
-            'mode' => 'Вид',
-            'enter_year' => 'Год',
+            'mode' => 'Форма обучение',
+            'enter_year' => 'Начальный год',
             'specialty_id' => 'Специальность',
             'rup_id' => 'РУП',
         ];

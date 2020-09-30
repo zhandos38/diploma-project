@@ -12,13 +12,13 @@ use yii\helpers\VarDumper;
 class SignupForm extends Model
 {
     public $username;
-    public $full_name;
-    public $address;
+    public $name;
+    public $surname;
+    public $patronymic;
     public $email;
     public $password;
     public $role;
     public $status;
-    public $phone;
 
 
     /**
@@ -41,8 +41,10 @@ class SignupForm extends Model
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
 
-            [['full_name', 'address', 'role'], 'string'],
-            [['status'], 'integer']
+            [['status', 'role'], 'integer'],
+
+            [['name', 'surname', 'patronymic'], 'string'],
+            [['name', 'surname'], 'required'],
         ];
     }
 
@@ -50,10 +52,10 @@ class SignupForm extends Model
     {
         return [
             'username' => 'Логин',
-            'full_name' => 'Ф.И.О',
             'password' => 'Пароль',
-            'phone' => 'Телефон',
-            'address' => 'Адрес'
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
         ];
     }
 
@@ -70,17 +72,16 @@ class SignupForm extends Model
 
         $user = new User();
         $user->username = $this->username;
+        $user->name = $this->name;
+        $user->surname = $this->surname;
+        $user->patronymic = $this->patronymic;
         $user->email = $this->email;
+        $user->status = User::STATUS_ACTIVE;
+        $user->role = User::ROLE_ADMIN;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        $user->full_name = $this->full_name;
-        $user->address = $this->address;
-        $user->phone = $this->phone;
-        $user->status = $this->status;
-        $user->role = $this->role;
+//        $user->generateEmailVerificationToken();
         return $user->save();
-
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Teacher;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -16,27 +17,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('Назад', ['index', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+
             'surname',
             'name',
             'patronymic',
             'degree',
             'degree_extra',
-            'is_head',
-            'is_pps',
+            [
+                'attribute' => 'is_head',
+                'value' => function(Teacher $model) {
+                    return $model->is_head ? "Да" : "Нет";
+                },
+            ],
+            [
+                'attribute' => 'is_pps',
+                'value' => function(Teacher $model) {
+                    return $model->is_pps ? "Да" : "Нет";
+                },
+            ],
             'state',
         ],
     ]) ?>

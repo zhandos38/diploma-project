@@ -24,17 +24,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'language')->dropDownList(\common\models\Language::getAll(), ['prompt' => 'Выберите язык']) ?>
+    <?= $form->field($model, 'specialty_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите специальность']) ?>
 
-    <?= $form->field($model, 'degree')->dropDownList(\common\models\Degree::getAll(), ['prompt' => 'Выбрите степень']) ?>
+    <?= $form->field($model, 'degree')->dropDownList(\common\models\Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
 
-    <?= $form->field($model, 'mode')->textInput() ?>
+    <?= $form->field($model, 'language')->dropDownList(\common\models\Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+
+    <?= $form->field($model, 'mode')->dropDownList(\common\models\Helper::getModes(), ['prompt' => 'Выберите форму обучение']) ?>
 
     <?= $form->field($model, 'enter_year')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'specialty_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите специальность']) ?>
-
-    <?= $form->field($model, 'rup_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите РУП']) ?>
+    <?= $form->field($model, 'rup_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', function ($model) {
+        return $model['year'] . ' - ' . $model['language'];
+    }), ['prompt' => 'Выберите РУП']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

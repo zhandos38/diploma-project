@@ -1,9 +1,11 @@
 <?php
 
 use common\models\Group;
+use common\models\Helper;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -28,26 +30,43 @@ $this->params['breadcrumbs'][] = $this->title;
         ['class' => 'yii\grid\SerialColumn'],
 
         'name',
-        'language',
+        [
+            'attribute' => 'language',
+            'value' => function(Group $model) {
+                return ArrayHelper::getValue(Helper::getLanguages(), $model->language);
+            },
+            'filter' => Helper::getLanguages()
+        ],
         [
             'attribute' => 'degree',
             'value' => function(Group $model) {
-                return $model->getDegreeLabel();
-            }
+                return ArrayHelper::getValue(Helper::getDegrees(), $model->degree);
+            },
+            'filter' => Helper::getDegrees()
         ],
-        'mode',
+        [
+            'attribute' => 'mode',
+            'value' => function(Group $model) {
+                return ArrayHelper::getValue(Helper::getModes(), $model->mode);
+            },
+            'filter' => Helper::getModes()
+        ],
         'enter_year',
         [
             'attribute' => 'specialty_id',
             'value' => function(Group $model) {
                 return $model->specialty->name;
-            }
+            },
+            'filter' => ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'rup_id',
             'value' => function(Group $model) {
                 return $model->rup->specialty->name . ' - ' . $model->rup->year . ' - ' . $model->rup->language;
-            }
+            },
+            'filter' => ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', function($model) {
+                return $model['year'] . ' - ' . $model['language'];
+            })
         ],
 
         ['class' => 'yii\grid\ActionColumn'],

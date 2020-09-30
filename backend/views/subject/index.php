@@ -1,7 +1,11 @@
 <?php
 
+use common\models\Component;
+use common\models\Helper;
+use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -28,13 +32,46 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'component_id',
-            'subject_type_id',
+            'name',
+            [
+                'attribute' => 'component_id',
+                'value' => function(Subject $model) {
+                    return $model->component->name;
+                },
+                'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
+            ],
+            [
+                'attribute' => 'subject_type_id',
+                'value' => function(Subject $model) {
+                    return $model->subjectType->name;
+                },
+                'filter' => ArrayHelper::map(\common\models\SubjectType::find()->asArray()->all(), 'id', 'name')
+            ],
             'code',
-            'module_id',
-            //'language',
-            //'name',
-            //'is_practice',
+            [
+                'attribute' => 'module_id',
+                'value' => function(Subject $model) {
+                    return $model->module->name;
+                },
+                'filter' => ArrayHelper::map(Subject::find()->asArray()->all(), 'id', 'name')
+            ],
+            [
+                'attribute' => 'language',
+                'value' => function(Subject $model) {
+                    return ArrayHelper::getValue(Helper::getLanguages(), $model->language);
+                },
+                'filter' => Helper::getLanguages()
+            ],
+            [
+                'attribute' => 'is_practice',
+                'value' => function(Subject $model) {
+                    return $model->is_practice ? "Да" : "Нет";
+                },
+                'filter' => [
+                    0 => "Нет",
+                    1 => "Да"
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

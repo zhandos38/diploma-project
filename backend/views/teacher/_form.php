@@ -32,9 +32,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'degree_extra')->textInput() ?>
 
-    <?= $form->field($model, 'is_head')->textInput() ?>
+    <?= $form->field($model, 'is_head')->checkbox() ?>
 
-    <?= $form->field($model, 'is_pps')->textInput() ?>
+    <?= $form->field($model, 'is_pps')->checkbox() ?>
 
     <?= $form->field($model, 'state')->textInput() ?>
 

@@ -25,9 +25,6 @@ use yii\helpers\ArrayHelper;
  */
 class Rup extends \yii\db\ActiveRecord
 {
-    const MODE_DAY = 1;
-    const MODE_EVENING = 0;
-
     /**
      * {@inheritdoc}
      */
@@ -109,18 +106,5 @@ class Rup extends \yii\db\ActiveRecord
     public function getEducation()
     {
         return $this->hasOne(Education::className(), ['id' => 'education_id']);
-    }
-
-    public static function getModes()
-    {
-        return [
-            self::MODE_DAY => 'Дневная форма',
-            self::MODE_EVENING => 'Вечерняя форма',
-        ];
-    }
-
-    public function getMode()
-    {
-        return ArrayHelper::getValue(self::getModes(), $this->mode);
     }
 }

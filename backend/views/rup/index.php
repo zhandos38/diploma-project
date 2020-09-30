@@ -49,9 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'mode',
                 'value' => function(Rup $model) {
-                    return $model->getMode();
+                    return ArrayHelper::getValue(Helper::getModes(), $model->mode);
                 },
-                'filter' => Rup::getModes()
+                'filter' => Helper::getModes()
             ],
             [
                 'attribute' => 'language',

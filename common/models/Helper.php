@@ -4,6 +4,8 @@
 namespace common\models;
 
 
+use yii\helpers\ArrayHelper;
+
 class Helper
 {
     const BACHELOR = 0;
@@ -35,5 +37,16 @@ class Helper
         }
 
         return $semester;
+    }
+
+    const MODE_DAY = 1;
+    const MODE_EVENING = 0;
+
+    public static function getModes()
+    {
+        return [
+            self::MODE_DAY => 'Дневная форма',
+            self::MODE_EVENING => 'Вечерняя форма',
+        ];
     }
 }

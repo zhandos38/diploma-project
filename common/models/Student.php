@@ -38,6 +38,8 @@ class Student extends \yii\db\ActiveRecord
             [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
             [['phone', 'phone_parent', 'iin'], 'string', 'max' => 20],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
+
+            [['surname', 'name', 'group_id', 'iin'], 'required']
         ];
     }
 

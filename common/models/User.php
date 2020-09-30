@@ -13,6 +13,9 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $name
+ * @property string $surname
+ * @property string $patronymic
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $verification_token
@@ -63,6 +66,8 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+
+            [['name', 'surname', 'patronymic'], 'string']
         ];
     }
 
@@ -70,6 +75,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'username' => 'Логин',
+            'name' => 'Имя' ,
+            'surname' => 'Фамилия' ,
+            'patronymic' => 'Отчество' ,
             'role' => 'Роль',
             'status' => 'Статус',
             'created_at' => 'Дата добавление'

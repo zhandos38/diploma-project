@@ -43,6 +43,7 @@ class Teacher extends \yii\db\ActiveRecord
             [['degree', 'degree_extra', 'is_head', 'is_pps'], 'integer'],
             [['state'], 'number'],
             [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
+            [['name', 'surname', 'degree', 'state'], 'required']
         ];
     }
 
@@ -54,7 +55,7 @@ class Teacher extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'surname' => 'Фамилия',
-            'name' => 'Наименование',
+            'name' => 'Имя',
             'patronymic' => 'Отчество',
             'degree' => 'Степень',
             'degree_extra' => 'Степень Доп.',

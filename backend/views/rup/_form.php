@@ -1,7 +1,9 @@
 <?php
 
+use common\models\Helper;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -24,22 +26,22 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'specialty_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите степень']) ?>
+            <?= $form->field($model, 'specialty_id')->dropDownList(ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите степень']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'degree')->dropDownList(\common\models\Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
+            <?= $form->field($model, 'degree')->dropDownList(Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'language')->dropDownList(\common\models\Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+            <?= $form->field($model, 'language')->dropDownList(Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'direction')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\EducationDirection::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите направление образование']) ?>
+            <?= $form->field($model, 'direction_id')->dropDownList(ArrayHelper::map(\common\models\EducationDirection::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите направление образование']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'education')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Education::find()->asArray()->all(),'id', 'name'), ['prompt' => 'Выберите образование']) ?>
+            <?= $form->field($model, 'education_id')->dropDownList(ArrayHelper::map(\common\models\Education::find()->asArray()->all(),'id', 'name'), ['prompt' => 'Выберите образование']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'mode')->dropDownList(\common\models\Rup::getModes(), ['prompt' => 'Выберите форму обучение']) ?>
+            <?= $form->field($model, 'mode')->dropDownList(Helper::getModes(), ['prompt' => 'Выберите форму обучение']) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'year')->dropDownList([
