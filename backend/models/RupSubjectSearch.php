@@ -11,6 +11,10 @@ use common\models\RupSubject;
  */
 class RupSubjectSearch extends RupSubject
 {
+    public $component_id;
+    public $module_id;
+    public $code;
+
     /**
      * {@inheritdoc}
      */
@@ -18,6 +22,9 @@ class RupSubjectSearch extends RupSubject
     {
         return [
             [['id', 'rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+
+            [['component_id', 'module_id'], 'integer'],
+            ['code', 'string']
         ];
     }
 
@@ -39,7 +46,8 @@ class RupSubjectSearch extends RupSubject
      */
     public function search($params)
     {
-        $query = RupSubject::find();
+        $query = RupSubject::find()
+                ->joinWith('subject as t2');
 
         // add conditions that should always apply here
 
@@ -67,6 +75,10 @@ class RupSubjectSearch extends RupSubject
             'is_course_work' => $this->is_course_work,
             'is_gos' => $this->is_gos,
             'is_exam' => $this->is_exam,
+
+            't2.module_id' => $this->module_id,
+            't2.component_id' => $this->component_id,
+            't2.code' => $this->code
         ]);
 
         return $dataProvider;

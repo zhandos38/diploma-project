@@ -41,7 +41,8 @@ class TeacherSearch extends Teacher
      */
     public function search($params)
     {
-        $query = Teacher::find();
+        $query = Teacher::find()
+            ->where(['user_id' => \Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 

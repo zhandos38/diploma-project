@@ -15,6 +15,7 @@ use Yii;
  * @property string|null $phone
  * @property string|null $phone_parent
  * @property string|null $iin
+ * @property int|null $user_id
  *
  * @property Group $group
  */
@@ -34,7 +35,7 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id'], 'integer'],
+            [['group_id', 'user_id'], 'integer'],
             [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
             [['phone', 'phone_parent', 'iin'], 'string', 'max' => 20],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],

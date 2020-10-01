@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property string|null $enter_year
  * @property int|null $specialty_id
  * @property int|null $rup_id
+ * @property int|null $user_id
  *
  * @property Rup $rup
  * @property Specialty $specialty
@@ -38,7 +39,7 @@ class Group extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['degree', 'mode', 'specialty_id', 'rup_id'], 'integer'],
+            [['degree', 'mode', 'specialty_id', 'rup_id', 'user_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 2],
             [['enter_year'], 'string', 'max' => 4],

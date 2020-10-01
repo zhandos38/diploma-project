@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $mode
  * @property int|null $direction_id
  * @property int|null $education_id
+ * @property int|null $user_id
  *
  * @property Group[] $groups
  * @property Education[] $education
@@ -39,7 +40,7 @@ class Rup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['specialty_id', 'degree', 'year', 'mode', 'direction_id', 'education_id'], 'integer'],
+            [['specialty_id', 'degree', 'year', 'mode', 'direction_id', 'education_id', 'user_id'], 'integer'],
             [['language'], 'string', 'max' => 2],
             [['specialty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['specialty_id' => 'id']],
         ];

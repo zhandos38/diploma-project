@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $degree_extra
  * @property int|null $is_head
  * @property int|null $is_pps
+ * @property int|null $user_id
  * @property float|null $state
  *
  * @property TeachersLoad[] $teachersLoads
@@ -40,7 +41,7 @@ class Teacher extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['degree', 'degree_extra', 'is_head', 'is_pps'], 'integer'],
+            [['degree', 'degree_extra', 'is_head', 'is_pps', 'user_id'], 'integer'],
             [['state'], 'number'],
             [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
             [['name', 'surname', 'degree', 'state'], 'required']

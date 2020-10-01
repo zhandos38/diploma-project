@@ -40,7 +40,8 @@ class RupSearch extends Rup
      */
     public function search($params)
     {
-        $query = Rup::find();
+        $query = Rup::find()
+            ->where(['user_id' => \Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 
