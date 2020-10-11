@@ -52,7 +52,7 @@ class RupSubject extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'rup_id' => 'РУП',
-            'subject_id' => 'Предмет',
+            'subject_id' => 'Дисциплина',
             'semester' => 'Семестр',
             'amount_lecture' => 'Кол-во лекции',
             'amount_practice' => 'Кол-во практики',

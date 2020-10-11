@@ -4,26 +4,21 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\RupSubject;
+use common\models\ComponentItem;
 
 /**
- * RupSubjectSearch represents the model behind the search form of `common\models\RupSubject`.
+ * ComponentItemSearch represents the model behind the search form of `common\models\ComponentItem`.
  */
-class RupSubjectSearch extends RupSubject
+class ComponentItemSearch extends ComponentItem
 {
-    public $component_id;
-    public $module_id;
-    public $code;
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
-
-            [['component_id', 'module_id'], 'integer'],
+            [['id', 'component_id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -45,8 +40,7 @@ class RupSubjectSearch extends RupSubject
      */
     public function search($params)
     {
-        $query = RupSubject::find()
-                ->joinWith('subject as t2');
+        $query = ComponentItem::find();
 
         // add conditions that should always apply here
 
@@ -65,19 +59,10 @@ class RupSubjectSearch extends RupSubject
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'rup_id' => $this->rup_id,
-            'subject_id' => $this->subject_id,
-            'semester' => $this->semester,
-            'amount_lecture' => $this->amount_lecture,
-            'amount_practice' => $this->amount_practice,
-            'amount_lab' => $this->amount_lab,
-            'is_course_work' => $this->is_course_work,
-            'is_gos' => $this->is_gos,
-            'is_exam' => $this->is_exam,
-
-            't2.module_id' => $this->module_id,
-            't2.component_id' => $this->component_id,
+            'component_id' => $this->component_id,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

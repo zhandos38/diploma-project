@@ -26,8 +26,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'component_id')->dropDownList(\yii\helpers\ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите компонент']) ?>
 
     <?= $form->field($model, 'subject_type_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\SubjectType::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите тип']) ?>

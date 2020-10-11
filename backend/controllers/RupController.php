@@ -6,6 +6,7 @@ use backend\models\RupSubjectSearch;
 use Yii;
 use common\models\Rup;
 use backend\models\RupSearch;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -22,6 +23,15 @@ class RupController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user']
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

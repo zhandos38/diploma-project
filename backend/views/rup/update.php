@@ -63,13 +63,6 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'filter' => \yii\helpers\ArrayHelper::map(\common\models\Subject::find()->asArray()->all(), 'id', 'name')
         ],
         [
-            'attribute' => 'code',
-            'label' => 'Код предмета',
-            'value' => function(RupSubject $model) {
-                return $model->subject->code;
-            }
-        ],
-        [
             'attribute' => 'semester',
             'filter' => \common\models\Helper::getSemesters()
         ],

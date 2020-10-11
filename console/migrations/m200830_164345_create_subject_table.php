@@ -18,7 +18,6 @@ class m200830_164345_create_subject_table extends Migration
             'id' => $this->primaryKey(),
             'component_id' => $this->integer(),
             'subject_type_id' => $this->integer(),
-            'code' => $this->string(),
             'module_id' => $this->integer(),
             'language' => $this->string(2),
             'name' => $this->string(),

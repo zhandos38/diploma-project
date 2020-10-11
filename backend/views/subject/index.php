@@ -47,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => ArrayHelper::map(\common\models\SubjectType::find()->asArray()->all(), 'id', 'name')
             ],
-            'code',
             [
                 'attribute' => 'module_id',
                 'value' => function(Subject $model) {

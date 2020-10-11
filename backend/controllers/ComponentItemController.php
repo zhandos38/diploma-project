@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\RupSubject;
-use backend\models\RupSubjectSearch;
-use yii\filters\AccessControl;
+use common\models\ComponentItem;
+use backend\models\ComponentItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RupSubjectController implements the CRUD actions for RupSubject model.
+ * ComponentItemController implements the CRUD actions for ComponentItem model.
  */
-class RupSubjectController extends Controller
+class ComponentItemController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,15 +20,6 @@ class RupSubjectController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['user']
-                    ]
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -40,12 +30,12 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Lists all RupSubject models.
+     * Lists all ComponentItem models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RupSubjectSearch();
+        $searchModel = new ComponentItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,7 +45,7 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Displays a single RupSubject model.
+     * Displays a single ComponentItem model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,17 +58,16 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Creates a new RupSubject model.
+     * Creates a new ComponentItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($rup)
+    public function actionCreate()
     {
-        $model = new RupSubject();
-        $model->rup_id = $rup;
+        $model = new ComponentItem();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['rup/update', 'id' => $model->rup_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -87,7 +76,7 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Updates an existing RupSubject model.
+     * Updates an existing ComponentItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +87,7 @@ class RupSubjectController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -107,7 +96,7 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Deletes an existing RupSubject model.
+     * Deletes an existing ComponentItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -121,15 +110,15 @@ class RupSubjectController extends Controller
     }
 
     /**
-     * Finds the RupSubject model based on its primary key value.
+     * Finds the ComponentItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RupSubject the loaded model
+     * @return ComponentItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RupSubject::findOne($id)) !== null) {
+        if (($model = ComponentItem::findOne($id)) !== null) {
             return $model;
         }
 
