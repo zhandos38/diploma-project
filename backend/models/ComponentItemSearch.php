@@ -38,9 +38,10 @@ class ComponentItemSearch extends ComponentItem
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $component_id)
     {
-        $query = ComponentItem::find();
+        $query = ComponentItem::find()
+                ->where(['component_id' => $component_id]);
 
         // add conditions that should always apply here
 

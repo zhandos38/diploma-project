@@ -8,6 +8,7 @@ use kartik\export\ExportMenu;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Rup */
@@ -100,7 +101,18 @@ $this->params['breadcrumbs'][] = 'Обновить';
             ]
         ],
 
-        ['class' => 'yii\grid\ActionColumn'],
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete}',
+            'buttons' => [
+                'update' => function($url, $model) {
+                    return Html::a('<span class="fa fa-pencil"></span>', Url::to(['rup-subject/update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
+                },
+                'delete' => function($url, $model) {
+                    return Html::a('<span class="fa fa-trash"></span>', Url::to(['rup-subject/delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
+                },
+            ]
+        ],
     ];
 
     ?>

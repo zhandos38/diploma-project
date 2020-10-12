@@ -42,8 +42,8 @@ class ComponentItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'component_id' => 'Component ID',
+            'name' => 'Наименование',
+            'component_id' => 'Компонент',
         ];
     }
 

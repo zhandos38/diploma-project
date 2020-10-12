@@ -103,7 +103,7 @@ class RupController extends Controller
         }
 
         $searchModel = new RupSubjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->id);
 
         return $this->render('update', [
             'model' => $model,

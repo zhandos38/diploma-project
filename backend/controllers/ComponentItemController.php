@@ -62,12 +62,13 @@ class ComponentItemController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($component)
     {
         $model = new ComponentItem();
+        $model->component_id = $component;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['component/update', 'id' => $model->component_id]);
         }
 
         return $this->render('create', [
@@ -87,7 +88,7 @@ class ComponentItemController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['component/update', 'id' => $model->component_id]);
         }
 
         return $this->render('update', [
@@ -101,12 +102,16 @@ class ComponentItemController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $component = $model->component_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['component/update', 'id' => $component]);
     }
 
     /**

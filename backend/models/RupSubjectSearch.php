@@ -43,10 +43,11 @@ class RupSubjectSearch extends RupSubject
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $rup_id)
     {
         $query = RupSubject::find()
-                ->joinWith('subject as t2');
+                ->joinWith('subject as t2')
+                ->where(['rup_id' => $rup_id]);
 
         // add conditions that should always apply here
 

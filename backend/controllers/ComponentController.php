@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\ComponentItemSearch;
 use Yii;
 use common\models\Component;
 use backend\models\ComponentSearch;
@@ -100,8 +101,13 @@ class ComponentController extends Controller
             return $this->redirect(['index']);
         }
 
+        $searchModel = new ComponentItemSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->id);
+
         return $this->render('update', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -111,6 +117,8 @@ class ComponentController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
