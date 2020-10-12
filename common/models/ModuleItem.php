@@ -42,8 +42,8 @@ class ModuleItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'module_id' => 'Module ID',
+            'name' => 'Наименование',
+            'module_id' => 'Модуль',
         ];
     }
 

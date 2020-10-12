@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
     <?php LteBox::begin([
         'type' => LteConst::TYPE_INFO,
         'isSolid' => true,
-        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['module-item/create', 'component' => $model->id], ['class' => 'btn btn-success btn-xs create_button']),
+        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['module-item/create', 'module' => $model->id], ['class' => 'btn btn-success btn-xs create_button']),
         'tooltip' => 'this tooltip description',
         'title' => 'Подмодуль'
     ]) ?>

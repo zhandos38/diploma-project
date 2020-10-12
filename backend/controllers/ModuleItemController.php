@@ -68,7 +68,7 @@ class ModuleItemController extends Controller
         $model->module_id = $model;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->module_id]);
+            return $this->redirect(['module/update', 'id' => $model->module_id]);
         }
 
         return $this->render('create', [
@@ -88,7 +88,7 @@ class ModuleItemController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->module_id]);
+            return $this->redirect(['module/update', 'id' => $model->module_id]);
         }
 
         return $this->render('update', [
