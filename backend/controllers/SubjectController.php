@@ -75,6 +75,7 @@ class SubjectController extends Controller
     public function actionCreate()
     {
         $model = new Subject();
+        $model->user_id = Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);

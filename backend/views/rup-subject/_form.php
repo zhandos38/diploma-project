@@ -1,7 +1,10 @@
 <?php
 
+use common\models\Helper;
+use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,9 +25,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'subject_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Subject::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите предмет']) ?>
+    <?= $form->field($model, 'subject_id')->dropDownList(ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите предмет']) ?>
 
-    <?= $form->field($model, 'semester')->dropDownList(\common\models\Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
+    <?= $form->field($model, 'semester')->dropDownList(Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
 
     <?= $form->field($model, 'amount_lecture')->textInput() ?>
 

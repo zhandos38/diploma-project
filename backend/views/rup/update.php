@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'value' => function(RupSubject $model) {
                 return $model->subject->module->name;
             },
-            'filter' => \yii\helpers\ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'component_id',
@@ -54,14 +54,14 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'value' => function(RupSubject $model) {
                 return $model->subject->component->name;
             },
-            'filter' => \yii\helpers\ArrayHelper::map(\common\models\Component::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(\common\models\Component::find()->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'subject_id',
             'value' => function(RupSubject $model) {
                 return $model->subject->name;
             },
-            'filter' => \yii\helpers\ArrayHelper::map(\common\models\Subject::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(\common\models\Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'semester',

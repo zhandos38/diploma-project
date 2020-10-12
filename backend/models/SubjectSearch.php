@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Subject;
@@ -40,7 +41,8 @@ class SubjectSearch extends Subject
      */
     public function search($params)
     {
-        $query = Subject::find();
+        $query = Subject::find()
+                ->where(['user_id' => Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 

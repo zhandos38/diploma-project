@@ -14,6 +14,7 @@ use Yii;
  * @property string|null $language
  * @property string|null $name
  * @property int|null $is_practice
+ * @property int|null $user_id
  *
  * @property RupSubject[] $rupSubjects
  * @property Component $component
@@ -36,11 +37,12 @@ class Subject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['component_id', 'subject_type_id', 'module_id', 'is_practice'], 'integer'],
+            [['component_id', 'subject_type_id', 'module_id', 'is_practice', 'user_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 2],
             [['component_id'], 'exist', 'skipOnError' => true, 'targetClass' => Component::className(), 'targetAttribute' => ['component_id' => 'id']],
-            [['component_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubjectType::className(), 'targetAttribute' => ['component_id' => 'id']],
+            [['subject_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubjectType::className(), 'targetAttribute' => ['subject_type_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
 
             [['name', 'subject_type_id', 'component_id', 'module_id'], 'required']
         ];
