@@ -20,7 +20,7 @@ class m201009_172810_create_module_item_table extends Migration
             'module_id' => $this->integer()
         ]);
 
-        $this->addForeignKey('fk-module-item-module_id-module-id', $this->tableName, 'moduke_id', 'module', 'id', 'CASCADE');
+        $this->addForeignKey('fk-module-item-module_id-module-id', $this->tableName, 'module_id', 'module', 'id', 'CASCADE');
     }
 
     /**

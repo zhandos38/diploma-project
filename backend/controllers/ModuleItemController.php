@@ -2,19 +2,17 @@
 
 namespace backend\controllers;
 
-use backend\models\ModuleItemSearch;
 use Yii;
-use common\models\Module;
-use backend\models\ModuleSearch;
-use yii\filters\AccessControl;
+use common\models\ModuleItem;
+use backend\models\ModuleItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ModuleController implements the CRUD actions for Module model.
+ * ModuleItemController implements the CRUD actions for ModuleItem model.
  */
-class ModuleController extends Controller
+class ModuleItemController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,15 +20,6 @@ class ModuleController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['user']
-                    ]
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,12 +30,12 @@ class ModuleController extends Controller
     }
 
     /**
-     * Lists all Module models.
+     * Lists all ModuleItem models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ModuleSearch();
+        $searchModel = new ModuleItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -56,7 +45,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Displays a single Module model.
+     * Displays a single ModuleItem model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,16 +58,17 @@ class ModuleController extends Controller
     }
 
     /**
-     * Creates a new Module model.
+     * Creates a new ModuleItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($module)
     {
-        $model = new Module();
+        $model = new ModuleItem();
+        $model->module_id = $model;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $model->module_id]);
         }
 
         return $this->render('create', [
@@ -87,7 +77,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Updates an existing Module model.
+     * Updates an existing ModuleItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,43 +88,42 @@ class ModuleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $model->module_id]);
         }
-
-        $searchModel = new ModuleItemSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->id);
 
         return $this->render('update', [
             'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Deletes an existing Module model.
+     * Deletes an existing ModuleItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $component = $model->module_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['module/update', 'id' => $component]);
     }
 
     /**
-     * Finds the Module model based on its primary key value.
+     * Finds the ModuleItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Module the loaded model
+     * @return ModuleItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Module::findOne($id)) !== null) {
+        if (($model = ModuleItem::findOne($id)) !== null) {
             return $model;
         }
 
