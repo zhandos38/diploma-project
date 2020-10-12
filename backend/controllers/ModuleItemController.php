@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\ModuleItem;
 use backend\models\ModuleItemSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,7 +66,7 @@ class ModuleItemController extends Controller
     public function actionCreate($module)
     {
         $model = new ModuleItem();
-        $model->module_id = $model;
+        $model->module_id = (int)$model;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['module/update', 'id' => $model->module_id]);
