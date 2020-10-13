@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\RupSubject;
 use backend\models\RupSubjectSearch;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,13 +72,25 @@ class RupSubjectController extends Controller
      * Creates a new RupSubject model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws Exception
      */
     public function actionCreate($rup)
     {
         $model = new RupSubject();
         $model->rup_id = $rup;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (RupSubject::findOne(['subject_id' => $model->subject_id])) {
+                Yii::$app->session->setFlash('error', 'Данный предмет уже добавлен');
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+
+            if (!$model->save()) {
+                throw new Exception('Rup subject is not saved');
+            }
+
             return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
