@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string|null $name
  * @property string|null $number
+ * @property integer|null $user_id
  */
 class Module extends \yii\db\ActiveRecord
 {

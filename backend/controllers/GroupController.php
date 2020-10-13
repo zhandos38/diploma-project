@@ -75,6 +75,7 @@ class GroupController extends Controller
     public function actionCreate()
     {
         $model = new Group();
+        $model->user_id = Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);

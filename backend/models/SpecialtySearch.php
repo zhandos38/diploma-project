@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Specialty;
@@ -40,7 +41,8 @@ class SpecialtySearch extends Specialty
      */
     public function search($params)
     {
-        $query = Specialty::find();
+        $query = Specialty::find()
+            ->where(['user_id' => Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 

@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Component;
@@ -40,7 +41,8 @@ class ComponentSearch extends Component
      */
     public function search($params)
     {
-        $query = Component::find();
+        $query = Component::find()
+            ->where(['user_id' => Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 

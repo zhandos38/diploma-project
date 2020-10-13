@@ -53,13 +53,13 @@ class Rup extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'specialty_id' => 'Спецаиальность',
+            'specialty_id' => 'Образовательная программа ',
             'language' => 'Язык',
             'degree' => 'Степень',
             'year' => 'Год',
             'mode' => 'Форма обучения',
             'direction_id' => 'Направление подготовки',
-            'education_id' => 'Образование',
+            'education_id' => 'Образование'
         ];
     }
 

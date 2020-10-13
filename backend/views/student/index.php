@@ -8,6 +8,7 @@ use kartik\export\ExportMenu;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\StudentSearch */
@@ -42,8 +43,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'phone',
         'phone_parent',
         'iin',
+        [
+            'attribute' => 'social_status',
+            'value' => function(Student $model) {
+                return $model->getSocialStatus();
+            },
+            'filter' => Student::getSocialStatuses()
+        ],
 
-        ['class' => 'yii\grid\ActionColumn'],
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete}',
+            'buttons' => [
+                'update' => function($url, $model) {
+                    return Html::a('<span class="fa fa-pencil"></span>', Url::to(['update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
+                },
+                'delete' => function($url, $model) {
+                    return Html::a('<span class="fa fa-trash"></span>', Url::to(['delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
+                },
+            ]
+        ],
     ]; ?>
 
     <?= ExportMenu::widget([

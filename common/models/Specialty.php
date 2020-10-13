@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
+ * @property integer|null $user_id
  *
  * @property Group[] $groups
  * @property Rup[] $rups
@@ -29,6 +30,7 @@ class Specialty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['user_id', 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }

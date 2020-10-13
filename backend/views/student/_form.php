@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Group;
+use common\models\Student;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use yii\helpers\ArrayHelper;
@@ -48,6 +49,8 @@ use yii\widgets\MaskedInput;
     ]) ?>
 
     <?= $form->field($model, 'iin')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'social_status')->dropDownList(Student::getSocialStatuses(), ['prompt' => 'Укажите социальный статус']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

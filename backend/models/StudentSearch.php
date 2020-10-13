@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Student;
@@ -17,7 +18,7 @@ class StudentSearch extends Student
     public function rules()
     {
         return [
-            [['id', 'group_id'], 'integer'],
+            [['id', 'group_id', 'social_status'], 'integer'],
             [['surname', 'name', 'patronymic', 'phone', 'phone_parent', 'iin'], 'safe'],
         ];
     }
@@ -41,7 +42,8 @@ class StudentSearch extends Student
     public function search($params)
     {
         $query = Student::find()
-            ->where(['user_id' => \Yii::$app->user->getId()]);
+            ->joinWith('group as t2')
+            ->where(['t2.user_id' => Yii::$app->user->getId()]);
 
         // add conditions that should always apply here
 
@@ -61,6 +63,7 @@ class StudentSearch extends Student
         $query->andFilterWhere([
             'id' => $this->id,
             'group_id' => $this->group_id,
+            'social_status' => $this->social_status
         ]);
 
         $query->andFilterWhere(['like', 'surname', $this->surname])

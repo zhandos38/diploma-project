@@ -75,6 +75,7 @@ class TeacherController extends Controller
     public function actionCreate()
     {
         $model = new Teacher();
+        $model->user_id = Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
