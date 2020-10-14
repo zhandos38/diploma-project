@@ -62,20 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => \common\models\Helper::getLanguages()
             ],
             'year',
-            [
-                'attribute' => 'direction_id',
-                'value' => function(Rup $model) {
-                    return $model->direction->name;
-                },
-                'filter' => ArrayHelper::map(EducationDirection::find()->asArray()->all(), 'id', 'name')
-            ],
-            [
-                'attribute' => 'education_id',
-                'value' => function(Rup $model) {
-                    return $model->education->name;
-                },
-                'filter' => ArrayHelper::map(Education::find()->asArray()->all(), 'id', 'name')
-            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

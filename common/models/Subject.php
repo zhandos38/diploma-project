@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $module_item_id
  * @property string|null $language
  * @property string|null $name
+ * @property string|null $code
  * @property int|null $is_practice
  * @property int|null $user_id
  *
@@ -39,7 +40,7 @@ class Subject extends \yii\db\ActiveRecord
     {
         return [
             [['component_item_id', 'module_item_id', 'is_practice', 'user_id'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'code'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 2],
             [['component_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComponentItem::className(), 'targetAttribute' => ['component_item_id' => 'id']],
             [['module_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModuleItem::className(), 'targetAttribute' => ['module_item_id' => 'id']],
@@ -62,6 +63,7 @@ class Subject extends \yii\db\ActiveRecord
             'module_item_id' => 'Подмодуль',
             'language' => 'Язык',
             'name' => 'Наименование',
+            'code' => 'Код',
             'is_practice' => 'Практика',
         ];
     }

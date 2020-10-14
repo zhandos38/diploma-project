@@ -58,10 +58,10 @@ class Group extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Наименование',
-            'language' => 'Язык обучение',
-            'degree' => 'Степень',
+            'language' => 'Язык обучения',
+            'degree' => 'Уровень обучения',
             'mode' => 'Форма обучение',
-            'enter_year' => 'Начальный год',
+            'enter_year' => 'Начало обучения',
             'specialty_id' => 'Специальность',
             'rup_id' => 'РУП',
         ];

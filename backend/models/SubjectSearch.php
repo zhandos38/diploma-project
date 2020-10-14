@@ -19,7 +19,8 @@ class SubjectSearch extends Subject
     {
         return [
             [['id', 'component_item_id', 'module_item_id', 'is_practice'], 'integer'],
-            [[ 'language', 'name'], 'safe'],
+
+            [[ 'language', 'name', 'code'], 'safe'],
         ];
     }
 
@@ -67,7 +68,8 @@ class SubjectSearch extends Subject
         ]);
 
         $query->andFilterWhere(['like', 'language', $this->language])
-            ->andFilterWhere(['like', 'name', $this->name]);
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'code', $this->code]);
 
         return $dataProvider;
     }

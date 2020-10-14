@@ -50,6 +50,8 @@ use yii\widgets\MaskedInput;
 
     <?= $form->field($model, 'iin')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'social_status')->dropDownList(Student::getSocialStatuses(), ['prompt' => 'Укажите социальный статус']) ?>
 
     <div class="form-group">

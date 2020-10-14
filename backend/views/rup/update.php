@@ -41,6 +41,13 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ['class' => 'yii\grid\SerialColumn'],
 
         [
+            'attribute' => 'code',
+            'value' => function(RupSubject $model) {
+                return $model->subject->code;
+            },
+            'label' => 'Код дисциплины'
+        ],
+        [
             'attribute' => 'module_item_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
@@ -66,6 +73,12 @@ $this->params['breadcrumbs'][] = 'Обновить';
         [
             'attribute' => 'semester',
             'filter' => \common\models\Helper::getSemesters()
+        ],
+        [
+            'value' => function(RupSubject $model) {
+                return ($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30;
+            },
+            'label' => 'Кредиты (KZ)'
         ],
         'amount_lecture',
         'amount_practice',

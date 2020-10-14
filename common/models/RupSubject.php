@@ -54,12 +54,12 @@ class RupSubject extends \yii\db\ActiveRecord
             'rup_id' => 'РУП',
             'subject_id' => 'Дисциплина',
             'semester' => 'Семестр',
-            'amount_lecture' => 'Кол-во лекции',
-            'amount_practice' => 'Кол-во практики',
-            'amount_lab' => 'Кол-во лабораторных',
+            'amount_lecture' => 'Кол-во часов лекции',
+            'amount_practice' => 'Кол-во часов практики',
+            'amount_lab' => 'Кол-во часов лабораторных',
             'is_course_work' => 'Курсовая работа',
             'is_gos' => 'Гос',
-            'is_exam' => 'Экзамен',
+            'is_exam' => 'Экзамен'
         ];
     }
 
