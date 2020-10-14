@@ -27,6 +27,8 @@ class RbacController extends Controller {
         $auth->add($admin);
         $auth->add($user);
 
+        $auth->addChild($admin, $user);
+
         $this->stdout('Done!' . PHP_EOL);
     }
 }

@@ -18,7 +18,7 @@ class SubjectSearch extends Subject
     public function rules()
     {
         return [
-            [['id', 'component_id', 'subject_type_id', 'module_id', 'is_practice'], 'integer'],
+            [['id', 'component_item_id', 'module_item_id', 'is_practice'], 'integer'],
             [[ 'language', 'name'], 'safe'],
         ];
     }
@@ -61,9 +61,8 @@ class SubjectSearch extends Subject
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'component_id' => $this->component_id,
-            'subject_type_id' => $this->subject_type_id,
-            'module_id' => $this->module_id,
+            'component_item_id' => $this->component_item_id,
+            'module_item_id' => $this->module_item_id,
             'is_practice' => $this->is_practice,
         ]);
 

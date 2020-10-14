@@ -3,10 +3,13 @@
 namespace backend\controllers;
 
 use backend\models\ModuleItemSearch;
+use common\models\ModuleItem;
+use HttpException;
 use Yii;
 use common\models\Module;
 use backend\models\ModuleSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -118,6 +121,8 @@ class ModuleController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -140,5 +145,15 @@ class ModuleController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetModuleItems($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            $cities = ModuleItem::findAll(['module_id' => $id]);
+            return Json::encode($cities);
+        }
+
+        throw new HttpException('404', 'Page is not found!');
     }
 }

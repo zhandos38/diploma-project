@@ -26,7 +26,7 @@
                     ['label' => 'Образ. программа', 'icon' => 'fas fa-book', 'url' => ['specialty/index']],
                     ['label' => 'Допалнительно', 'options' => ['class' => 'header']],
                     ['label' => 'Дисциплины', 'icon' => 'fas fa-book', 'url' => ['subject/index']],
-                    ['label' => 'Типы дисциплин', 'icon' => 'fas fa-book', 'url' => ['subject-type/index']],
+//                    ['label' => 'Типы дисциплин', 'icon' => 'fas fa-book', 'url' => ['subject-type/index']],
                     ['label' => 'Модули', 'icon' => 'fas fa-book', 'url' => ['module/index']],
                     ['label' => 'Компоненты', 'icon' => 'fas fa-book', 'url' => ['component/index']],
                     ['label' => 'Направ. образования', 'icon' => 'fas fa-book', 'url' => ['education/index']],

@@ -16,16 +16,10 @@ class m200830_164345_create_subject_table extends Migration
     {
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
-            'component_id' => $this->integer(),
-            'subject_type_id' => $this->integer(),
-            'module_id' => $this->integer(),
             'language' => $this->string(2),
             'name' => $this->string(),
             'is_practice' => $this->boolean()
         ]);
-
-        $this->addForeignKey('fk-subject-component_id-component-id', $this->tableName, 'component_id', '{{%component}}', 'id', 'SET NULL');
-        $this->addForeignKey('fk-subject-subject_type_id-subject_type-id', $this->tableName, 'component_id', '{{%subject_type}}', 'id', 'SET NULL');
     }
 
     /**

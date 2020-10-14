@@ -66,7 +66,7 @@ class ModuleItemController extends Controller
     public function actionCreate($module)
     {
         $model = new ModuleItem();
-        $model->module_id = (int)$model;
+        $model->module_id = (int)$module;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['module/update', 'id' => $model->module_id]);

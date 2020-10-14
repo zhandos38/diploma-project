@@ -1,7 +1,10 @@
 <?php
 
 use common\models\Component;
+use common\models\ComponentItem;
 use common\models\Helper;
+use common\models\Module;
+use common\models\ModuleItem;
 use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
@@ -37,23 +40,30 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'component_id',
                 'value' => function(Subject $model) {
-                    return $model->component->name;
+                    return $model->componentItem->component->name;
                 },
-                'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
+                'filter' => ArrayHelper::map(Component::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
             ],
             [
-                'attribute' => 'subject_type_id',
+                'attribute' => 'component_item_id',
                 'value' => function(Subject $model) {
-                    return $model->subjectType->name;
+                    return $model->componentItem->name;
                 },
-                'filter' => ArrayHelper::map(\common\models\SubjectType::find()->asArray()->all(), 'id', 'name')
+//                'filter' => ArrayHelper::map(ComponentItem::find()->asArray()->all(), 'id', 'name')
             ],
             [
                 'attribute' => 'module_id',
                 'value' => function(Subject $model) {
-                    return $model->module->name;
+                    return $model->moduleItem->module->name;
                 },
-                'filter' => ArrayHelper::map(Subject::find()->asArray()->all(), 'id', 'name')
+                'filter' => ArrayHelper::map(Module::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
+            ],
+            [
+                'attribute' => 'module_item_id',
+                'value' => function(Subject $model) {
+                    return $model->moduleItem->name;
+                },
+//                'filter' => ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name')
             ],
             [
                 'attribute' => 'language',

@@ -54,4 +54,9 @@ class Component extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Subject::className(), ['component_id' => 'id']);
     }
+
+    public function getComponentItems()
+    {
+        return $this->hasMany(ComponentItem::className(), ['component_id' => 'id']);
+    }
 }

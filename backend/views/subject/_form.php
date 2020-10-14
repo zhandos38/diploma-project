@@ -1,9 +1,14 @@
 <?php
 
 use common\models\Component;
+use common\models\ComponentItem;
+use common\models\Helper;
+use common\models\Module;
+use common\models\ModuleItem;
 use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -26,13 +31,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'component_id')->dropDownList(\yii\helpers\ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите компонент']) ?>
+    <?= $form->field($model, 'component_id')->dropDownList(ArrayHelper::map(Component::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['id' => 'component-id', 'prompt' => 'Выберите компонент']) ?>
 
-    <?= $form->field($model, 'subject_type_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\SubjectType::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите тип']) ?>
+    <?= $form->field($model, 'component_item_id')->dropDownList(ArrayHelper::map(ComponentItem::find()->asArray()->all(), 'id', 'name'), ['id' => 'component-item-id', 'prompt' => 'Выберите подкомпонент']) ?>
 
-    <?= $form->field($model, 'language')->dropDownList(\common\models\Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+    <?= $form->field($model, 'module_id')->dropDownList(ArrayHelper::map(Module::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['id' => 'module-id', 'prompt' => 'Выберите модуль']) ?>
 
-    <?= $form->field($model, 'module_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите модуль']) ?>
+    <?= $form->field($model, 'module_item_id')->dropDownList(ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name'), ['id' => 'module-item-id', 'prompt' => 'Выберите подмодуль']) ?>
+
+    <?= $form->field($model, 'language')->dropDownList(Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
 
     <?= $form->field($model, 'is_practice')->checkbox() ?>
 
@@ -45,3 +52,47 @@ use yii\widgets\ActiveForm;
     <?php LteBox::end() ?>
 
 </div>
+<?php
+$js =<<<JS
+$('#component-id').change(function() {
+  $.get({
+    url: '/component/get-component-items',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      let options = '<option value>Выбрите подкомпонент</option>';
+      result.forEach(function(item) {
+        options += '<option value="' + item.id + '">' + item.name + '</option>'; 
+      });
+      
+      $('#component-item-id').html(options);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+
+$('#module-id').change(function() {
+  $.get({
+    url: '/module/get-module-items',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      let options = '<option value>Выберите подмодуль</option>';
+      result.forEach(function(item) {
+        options += '<option value="' + item.id + '">' + item.name + '</option>'; 
+      });
+      
+      $('#module-item-id').html(options);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+JS;
+
+$this->registerJs($js);
+
+?>

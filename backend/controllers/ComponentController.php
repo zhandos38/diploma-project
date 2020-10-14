@@ -3,10 +3,15 @@
 namespace backend\controllers;
 
 use backend\models\ComponentItemSearch;
+use common\models\ComponentItem;
+use common\models\Module;
+use common\models\ModuleItem;
+use HttpException;
 use Yii;
 use common\models\Component;
 use backend\models\ComponentSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -142,5 +147,15 @@ class ComponentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetComponentItems($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            $cities = ComponentItem::findAll(['component_id' => $id]);
+            return Json::encode($cities);
+        }
+
+        throw new HttpException('404', 'Page is not found!');
     }
 }

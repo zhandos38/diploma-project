@@ -8,21 +8,22 @@ use Yii;
  * This is the model class for table "subject".
  *
  * @property int $id
- * @property int|null $component_id
- * @property int|null $subject_type_id
- * @property int|null $module_id
+ * @property int|null $component_item_id
+ * @property int|null $module_item_id
  * @property string|null $language
  * @property string|null $name
  * @property int|null $is_practice
  * @property int|null $user_id
  *
  * @property RupSubject[] $rupSubjects
- * @property Component $component
- * @property SubjectType $subjectType
- * @property Module $module
+ * @property Component $componentItem
+ * @property Module $moduleItem
  */
 class Subject extends \yii\db\ActiveRecord
 {
+    public $component_id;
+    public $module_id;
+
     /**
      * {@inheritdoc}
      */
@@ -37,14 +38,14 @@ class Subject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['component_id', 'subject_type_id', 'module_id', 'is_practice', 'user_id'], 'integer'],
+            [['component_item_id', 'module_item_id', 'is_practice', 'user_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 2],
-            [['component_id'], 'exist', 'skipOnError' => true, 'targetClass' => Component::className(), 'targetAttribute' => ['component_id' => 'id']],
-            [['subject_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubjectType::className(), 'targetAttribute' => ['subject_type_id' => 'id']],
+            [['component_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComponentItem::className(), 'targetAttribute' => ['component_item_id' => 'id']],
+            [['module_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModuleItem::className(), 'targetAttribute' => ['module_item_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
 
-            [['name', 'subject_type_id', 'component_id', 'module_id'], 'required']
+            [['name', 'component_item_id', 'module_item_id'], 'required']
         ];
     }
 
@@ -55,9 +56,10 @@ class Subject extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'component_id' => 'Тип компонента',
-            'subject_type_id' => 'Тип дисциплины',
+            'component_id' => 'Компонент',
+            'component_item_id' => 'Подкомпонент',
             'module_id' => 'Модуль',
+            'module_item_id' => 'Подмодуль',
             'language' => 'Язык',
             'name' => 'Наименование',
             'is_practice' => 'Практика',
@@ -75,27 +77,21 @@ class Subject extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Component]].
+     * Gets query for [[ComponentItem]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getComponent()
+    public function getComponentItem()
     {
-        return $this->hasOne(Component::className(), ['id' => 'component_id']);
+        return $this->hasOne(ComponentItem::className(), ['id' => 'component_item_id']);
     }
+
 
     /**
-     * Gets query for [[SubjectType]].
-     *
      * @return \yii\db\ActiveQuery
      */
-    public function getSubjectType()
+    public function getModuleItem()
     {
-        return $this->hasOne(SubjectType::className(), ['id' => 'subject_type_id']);
-    }
-
-    public function getModule()
-    {
-        return $this->hasOne(Module::className(), ['id' => 'module_id']);
+        return $this->hasOne(ModuleItem::className(), ['id' => 'module_item_id']);
     }
 }
