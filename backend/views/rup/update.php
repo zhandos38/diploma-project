@@ -41,18 +41,18 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ['class' => 'yii\grid\SerialColumn'],
 
         [
-            'attribute' => 'module_id',
+            'attribute' => 'module_item_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
-                return $model->subject->module->name;
+                return $model->subject->moduleItem->name;
             },
             'filter' => ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name')
         ],
         [
-            'attribute' => 'component_id',
+            'attribute' => 'component_item_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->component->name;
+                return $model->subject->componentItem->name;
             },
             'filter' => ArrayHelper::map(\common\models\Component::find()->asArray()->all(), 'id', 'name')
         ],

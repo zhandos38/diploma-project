@@ -47,7 +47,7 @@ class RupSubjectController extends Controller
     public function actionIndex()
     {
         $searchModel = new RupSubjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $rup);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
