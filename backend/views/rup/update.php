@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'isSolid' => true,
         'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['rup-subject/create', 'rup' => $model->id], ['class' => 'btn btn-success btn-xs create_button']),
         'tooltip' => 'this tooltip description',
-        'title' => 'Предметы'
+        'title' => 'Дисциплины'
     ]) ?>
 
     <?php
