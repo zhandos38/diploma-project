@@ -147,6 +147,9 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $columns,
+        'options' => [
+            'class' => 'table table responsive'
+        ]
     ]); ?>
 
     <?php LteBox::end() ?>
