@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\RupSubject */
 
 $this->title = 'Создать';
-$this->params['breadcrumbs'][] = ['label' => 'РУП предмет', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'РУП дисциплина', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rup-subject-create">

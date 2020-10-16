@@ -60,7 +60,7 @@ class Teacher extends \yii\db\ActiveRecord
             'patronymic' => 'Отчество',
             'degree' => 'Степень',
             'degree_extra' => 'Степень Доп.',
-            'is_head' => 'Глава',
+            'is_head' => 'Зав. кафедрой',
             'is_pps' => 'ППС',
             'state' => 'Ставка',
         ];

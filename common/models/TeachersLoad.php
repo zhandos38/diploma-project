@@ -58,8 +58,8 @@ class TeachersLoad extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'group_id' => 'Группы',
-            'teacher_id' => 'Учитель',
-            'rup_subject_id' => 'Предмет',
+            'teacher_id' => 'Преподаватель',
+            'rup_subject_id' => 'Дисциплина',
             'practice' => 'Практика',
             'course_work' => 'Курсы',
             'exam' => 'Экзамен',
