@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "rup_subject".
@@ -10,6 +11,7 @@ use Yii;
  * @property int $id
  * @property int|null $rup_id
  * @property int|null $subject_id
+ * @property int|null $language
  * @property int|null $semester
  * @property int|null $amount_lecture
  * @property int|null $amount_practice
@@ -38,7 +40,7 @@ class RupSubject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam', 'language'], 'integer'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
         ];
@@ -53,6 +55,7 @@ class RupSubject extends \yii\db\ActiveRecord
             'id' => 'ID',
             'rup_id' => 'РУП',
             'subject_id' => 'Дисциплина',
+            'language' => 'Язык',
             'semester' => 'Семестр',
             'amount_lecture' => 'Кол-во часов лекции',
             'amount_practice' => 'Кол-во часов практики',
@@ -91,5 +94,19 @@ class RupSubject extends \yii\db\ActiveRecord
     public function getTeachersLoads()
     {
         return $this->hasMany(TeachersLoad::className(), ['rup_subject_id' => 'id']);
+    }
+
+    public static function getLanguages()
+    {
+        return [
+            0 => 'KZ',
+            1 => 'RU',
+            2 => 'EN'
+        ];
+    }
+
+    public function getLanguage()
+    {
+        return ArrayHelper::getValue(self::getLanguages(), $this->language);
     }
 }

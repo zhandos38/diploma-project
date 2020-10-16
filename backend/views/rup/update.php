@@ -71,6 +71,13 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'filter' => ArrayHelper::map(\common\models\Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
         ],
         [
+            'attribute' => 'language',
+            'value' => function(RupSubject $model) {
+                return ArrayHelper::getValue(RupSubject::getLanguages(), $model->language);
+            },
+            'filter' => RupSubject::getLanguages()
+        ],
+        [
             'attribute' => 'semester',
             'filter' => \common\models\Helper::getSemesters()
         ],
