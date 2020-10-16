@@ -17,7 +17,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\SubjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Предметы';
+$this->title = 'Дисциплины';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="subject-index">
@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'code',
             'name',
             [
                 'attribute' => 'component_id',

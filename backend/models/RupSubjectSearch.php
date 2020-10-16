@@ -23,6 +23,7 @@ class RupSubjectSearch extends RupSubject
         return [
             [['id', 'rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
 
+            ['code', 'string', 'max' => 255],
             [['component_item_id', 'module_item_id'], 'integer'],
         ];
     }
@@ -77,8 +78,10 @@ class RupSubjectSearch extends RupSubject
             'is_exam' => $this->is_exam,
 
             't2.module_item_id' => $this->module_item_id,
-            't2.component_item_id' => $this->component_item_id,
+            't2.component_item_id' => $this->component_item_id
         ]);
+
+        $query->andFilterWhere(['like', 'code', $this->code]);
 
         return $dataProvider;
     }

@@ -35,12 +35,6 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'language')->dropDownList(Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'direction_id')->dropDownList(ArrayHelper::map(\common\models\EducationDirection::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выберите направление образование']) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'education_id')->dropDownList(ArrayHelper::map(\common\models\Education::find()->asArray()->all(),'id', 'name'), ['prompt' => 'Выберите образование']) ?>
-        </div>
-        <div class="col-md-4">
             <?= $form->field($model, 'mode')->dropDownList(Helper::getModes(), ['prompt' => 'Выберите форму обучение']) ?>
         </div>
         <div class="col-md-4">
