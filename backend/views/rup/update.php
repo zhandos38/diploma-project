@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'attribute' => 'component_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->componentItem->module->name;
+                return $model->subject->componentItem->component->name;
             },
             'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
         ],
