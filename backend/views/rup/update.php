@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'value' => function(RupSubject $model) {
                 return $model->subject->moduleItem->module->name;
             },
-            'filter' => ArrayHelper::map(Module::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Module::find()->asArray()->andWhere(['user_id' => Yii::$app->user->getId()])->all(), 'id', 'name')
         ],
         [
             'attribute' => 'component_id',
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'value' => function(RupSubject $model) {
                 return $model->subject->componentItem->component->name;
             },
-            'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Component::find()->asArray()->andWhere(['user_id' => Yii::$app->user->getId()])->all(), 'id', 'name')
         ],
         [
             'attribute' => 'subject_id',
