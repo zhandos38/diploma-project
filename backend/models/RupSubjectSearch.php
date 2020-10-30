@@ -50,7 +50,8 @@ class RupSubjectSearch extends RupSubject
     {
         $query = RupSubject::find()
                 ->joinWith('subject as t2')
-                ->leftJoin('module_item as t3' , 't2.module_item_id = t3.id')
+                ->leftJoin('module_item as t3' , ['t2.module_item_id' => 't3.id'])
+                ->leftJoin('component_item as t4' , ['t2.component_item_id' => 't4.id'])
                 ->where(['rup_id' => $rup_id]);
 
         // add conditions that should always apply here
@@ -85,7 +86,7 @@ class RupSubjectSearch extends RupSubject
             't2.component_item_id' => $this->component_item_id,
 
             't3.module_id' => $this->module_id,
-            't3.component_id' => $this->component_id,
+            't4.component_id' => $this->component_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code]);
