@@ -1,7 +1,10 @@
 <?php
 
+use common\models\Component;
 use common\models\Helper;
+use common\models\Module;
 use common\models\RupSubject;
+use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
@@ -48,27 +51,27 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'label' => 'Код дисциплины'
         ],
         [
-            'attribute' => 'module_item_id',
+            'attribute' => 'module_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
-                return $model->subject->moduleItem->name;
+                return $model->subject->moduleItem->module->name;
             },
-            'filter' => ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Module::find()->asArray()->all(), 'id', 'name')
         ],
         [
-            'attribute' => 'component_item_id',
+            'attribute' => 'component_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->componentItem->name;
+                return $model->subject->componentItem->module->name;
             },
-            'filter' => ArrayHelper::map(\common\models\Component::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'subject_id',
             'value' => function(RupSubject $model) {
                 return $model->subject->name;
             },
-            'filter' => ArrayHelper::map(\common\models\Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'language',

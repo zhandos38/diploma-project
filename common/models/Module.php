@@ -11,6 +11,8 @@ use Yii;
  * @property string|null $name
  * @property string|null $number
  * @property integer|null $user_id
+ *
+ * @property ModuleItem $moduleItems
  */
 class Module extends \yii\db\ActiveRecord
 {
@@ -44,5 +46,13 @@ class Module extends \yii\db\ActiveRecord
             'name' => 'Наименование',
             'number' => 'Номер',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModuleItems()
+    {
+        return $this->hasMany(ModuleItem::className(), ['module_id' => 'id']);
     }
 }

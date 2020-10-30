@@ -11,7 +11,9 @@ use common\models\RupSubject;
  */
 class RupSubjectSearch extends RupSubject
 {
+    public $component_id;
     public $component_item_id;
+    public $module_id;
     public $module_item_id;
     public $code;
 
@@ -24,7 +26,7 @@ class RupSubjectSearch extends RupSubject
             [['id', 'rup_id', 'subject_id', 'language', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
 
             ['code', 'string', 'max' => 255],
-            [['component_item_id', 'module_item_id'], 'integer'],
+            [['component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer'],
         ];
     }
 
@@ -48,6 +50,7 @@ class RupSubjectSearch extends RupSubject
     {
         $query = RupSubject::find()
                 ->joinWith('subject as t2')
+                ->joinWith('moduleItem as t3')
                 ->where(['rup_id' => $rup_id]);
 
         // add conditions that should always apply here
@@ -79,7 +82,10 @@ class RupSubjectSearch extends RupSubject
             'is_exam' => $this->is_exam,
 
             't2.module_item_id' => $this->module_item_id,
-            't2.component_item_id' => $this->component_item_id
+            't2.component_item_id' => $this->component_item_id,
+
+            't3.module_id' => $this->module_id,
+            't3.component_id' => $this->component_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code]);
