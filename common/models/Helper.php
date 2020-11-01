@@ -20,14 +20,19 @@ class Helper
         ];
     }
 
-    const KZ = 'KZ';
-    const RU = 'RU';
-    const EN = 'EN';
+    const FIRST_LANG = 0;
+    const SECOND_LANG = 1;
+    const THIRD_LANG = 2;
 
     public static function getLanguages() {
         return [
-            self::KZ => 'KZ', self::RU => 'RU', self::EN => 'EN'
+            self::FIRST_LANG => 'I', self::SECOND_LANG => 'II', self::THIRD_LANG => 'III'
         ];
+    }
+
+    public static function getLanguage($language)
+    {
+        return ArrayHelper::getValue(self::getLanguages(), $language);
     }
 
     public static function getSemesters() {
@@ -45,8 +50,7 @@ class Helper
     public static function getModes()
     {
         return [
-            self::MODE_DAY => 'Дневная форма',
-            self::MODE_EVENING => 'Вечерняя форма',
+            self::MODE_DAY => 'Очная форма'
         ];
     }
 }

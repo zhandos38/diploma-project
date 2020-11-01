@@ -57,9 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'language',
                 'value' => function(Rup $model) {
-                    return $model->language;
+                    return Helper::getLanguage($model->language);
                 },
-                'filter' => \common\models\Helper::getLanguages()
+                'filter' => Helper::getLanguages()
             ],
             'year',
 

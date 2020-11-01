@@ -1,6 +1,8 @@
 <?php
 
+use common\models\Component;
 use common\models\Helper;
+use common\models\Module;
 use common\models\RupSubject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
@@ -43,25 +45,35 @@ $this->params['breadcrumbs'][] = 'Обновить';
         [
             'attribute' => 'code',
             'value' => function(RupSubject $model) {
-                return $model->subject->code;
+                $count = 0;
+                $components = Component::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+                foreach ($components as $component) {
+                    $count++;
+                    if ($component->id === $model->subject->component_id) {
+                        break;
+                    }
+                }
+
+                return  mb_substr($model->subject->name,0,1) . ' ' . $model->getSemester() . $count++;
             },
-            'label' => 'Код дисциплины'
+            'label' => 'Код дисциплины',
+            'format' => 'raw'
         ],
         [
-            'attribute' => 'module_item_id',
+            'attribute' => 'module_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
-                return $model->subject->moduleItem->name;
+                return $model->subject->moduleItem->module->name;
             },
-            'filter' => ArrayHelper::map(\common\models\Module::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Module::find()->asArray()->all(), 'id', 'name')
         ],
         [
-            'attribute' => 'component_item_id',
+            'attribute' => 'component_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->componentItem->name;
+                return $model->subject->componentItem->component->name;
             },
-            'filter' => ArrayHelper::map(\common\models\Component::find()->asArray()->all(), 'id', 'name')
+            'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
         ],
         [
             'attribute' => 'subject_id',
@@ -83,6 +95,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'amount_lecture',
         'amount_practice',
         'amount_lab',
+        'amount_extra',
         [
             'attribute' => 'is_course_work',
             'value' => function(RupSubject $model) {
@@ -139,6 +152,9 @@ $this->params['breadcrumbs'][] = 'Обновить';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [
+            'class' => 'table-responsive'
+        ],
         'columns' => $columns,
     ]); ?>
 

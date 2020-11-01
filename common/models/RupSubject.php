@@ -38,7 +38,7 @@ class RupSubject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
         ];
@@ -57,6 +57,7 @@ class RupSubject extends \yii\db\ActiveRecord
             'amount_lecture' => 'Кол-во часов лекции',
             'amount_practice' => 'Кол-во часов практики',
             'amount_lab' => 'Кол-во часов лабораторных',
+            'amount_extra' => 'Кол-во часов внеаудиторные',
             'is_course_work' => 'Курсовая работа',
             'is_gos' => 'Гос',
             'is_exam' => 'Экзамен'
@@ -91,5 +92,21 @@ class RupSubject extends \yii\db\ActiveRecord
     public function getTeachersLoads()
     {
         return $this->hasMany(TeachersLoad::className(), ['rup_subject_id' => 'id']);
+    }
+
+    public function getSemester()
+    {
+        $course = 1;
+        if ($this->semester === 1 && $this->semester === 2) {
+            $course = 1;
+        } else if ($this->semester === 3 && $this->semester === 4) {
+            $course = 2;
+        } else if ($this->semester === 5 && $this->semester === 6) {
+            $course = 3;
+        } else if ($this->semester === 7 && $this->semester === 8) {
+            $course = 4;
+        }
+
+        return $course;
     }
 }
