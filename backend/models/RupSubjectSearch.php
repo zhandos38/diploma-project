@@ -11,7 +11,9 @@ use common\models\RupSubject;
  */
 class RupSubjectSearch extends RupSubject
 {
+    public $component_id;
     public $component_item_id;
+    public $module_id;
     public $module_item_id;
     public $code;
 
@@ -21,10 +23,10 @@ class RupSubjectSearch extends RupSubject
     public function rules()
     {
         return [
-            [['id', 'rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['id', 'rup_id', 'subject_id', 'language', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
 
             ['code', 'string', 'max' => 255],
-            [['component_item_id', 'module_item_id'], 'integer'],
+            [['component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer'],
         ];
     }
 
@@ -48,6 +50,8 @@ class RupSubjectSearch extends RupSubject
     {
         $query = RupSubject::find()
                 ->joinWith('subject as t2')
+                ->leftJoin('module_item as t3' , ['t2.module_item_id' => 't3.id'])
+                ->leftJoin('component_item as t4' , ['t2.component_item_id' => 't4.id'])
                 ->where(['rup_id' => $rup_id]);
 
         // add conditions that should always apply here
@@ -69,6 +73,7 @@ class RupSubjectSearch extends RupSubject
             'id' => $this->id,
             'rup_id' => $this->rup_id,
             'subject_id' => $this->subject_id,
+            'language' => $this->language,
             'semester' => $this->semester,
             'amount_lecture' => $this->amount_lecture,
             'amount_practice' => $this->amount_practice,
@@ -78,7 +83,10 @@ class RupSubjectSearch extends RupSubject
             'is_exam' => $this->is_exam,
 
             't2.module_item_id' => $this->module_item_id,
-            't2.component_item_id' => $this->component_item_id
+            't2.component_item_id' => $this->component_item_id,
+
+            't3.module_id' => $this->module_id,
+            't4.component_id' => $this->component_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code]);

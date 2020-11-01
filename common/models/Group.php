@@ -62,7 +62,7 @@ class Group extends \yii\db\ActiveRecord
             'degree' => 'Уровень обучения',
             'mode' => 'Форма обучение',
             'enter_year' => 'Начало обучения',
-            'specialty_id' => 'Специальность',
+            'specialty_id' => 'Образовательная программа',
             'rup_id' => 'РУП',
         ];
     }

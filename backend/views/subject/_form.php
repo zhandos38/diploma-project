@@ -39,8 +39,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'module_item_id')->dropDownList(ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name'), ['id' => 'module-item-id', 'prompt' => 'Выберите подмодуль']) ?>
 
-    <?= $form->field($model, 'language')->dropDownList(Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
-
     <?= $form->field($model, 'is_practice')->checkbox() ?>
 
     <div class="form-group">

@@ -67,8 +67,7 @@ class SubjectSearch extends Subject
             'is_practice' => $this->is_practice,
         ]);
 
-        $query->andFilterWhere(['like', 'language', $this->language])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

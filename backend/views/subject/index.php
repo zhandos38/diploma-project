@@ -66,13 +66,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //                'filter' => ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name')
             ],
             [
-                'attribute' => 'language',
-                'value' => function(Subject $model) {
-                    return ArrayHelper::getValue(Helper::getLanguages(), $model->language);
-                },
-                'filter' => Helper::getLanguages()
-            ],
-            [
                 'attribute' => 'is_practice',
                 'value' => function(Subject $model) {
                     return $model->is_practice ? "Да" : "Нет";

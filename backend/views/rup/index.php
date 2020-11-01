@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         $columns = [
-            ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'attribute' => 'specialty_id',
                 'value' => function(Rup $model) {
@@ -62,19 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Helper::getLanguages()
             ],
             'year',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete}',
-                'buttons' => [
-                    'update' => function($url, $model) {
-                        return Html::a('<span class="fa fa-pencil"></span>', Url::to(['rup/update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
-                    },
-                    'delete' => function($url, $model) {
-                        return Html::a('<span class="fa fa-trash"></span>', Url::to(['rup/delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
-                    },
-                ]
-            ],
         ];
     ?>
 
@@ -82,6 +67,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => $columns
     ]); ?>
+
+    <?php
+    array_unshift($columns , ['class' => 'yii\grid\SerialColumn']);
+    array_push($columns, [
+        'class' => 'yii\grid\ActionColumn',
+        'template' => '{update} {delete}',
+        'buttons' => [
+            'update' => function($url, $model) {
+                return Html::a('<span class="fa fa-pencil"></span>', Url::to(['rup/update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
+            },
+            'delete' => function($url, $model) {
+                return Html::a('<span class="fa fa-trash"></span>', Url::to(['rup/delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
+            },
+        ]
+    ]);
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

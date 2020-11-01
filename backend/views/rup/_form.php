@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Helper;
+use common\models\Specialty;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use yii\helpers\ArrayHelper;
@@ -26,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'specialty_id')->dropDownList(ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите степень']) ?>
+            <?= $form->field($model, 'specialty_id')->dropDownList(ArrayHelper::map(Specialty::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Выбрите степень']) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'degree')->dropDownList(Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>

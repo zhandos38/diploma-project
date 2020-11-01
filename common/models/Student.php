@@ -62,7 +62,7 @@ class Student extends \yii\db\ActiveRecord
             'id' => 'ID',
             'surname' => 'Фамилия',
             'name' => 'Имя',
-            'patronymic' => 'Отчетсво',
+            'patronymic' => 'Отчество',
             'group_id' => 'Группа',
             'phone' => 'Телефон',
             'phone_parent' => 'Телефон родителей',

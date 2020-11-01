@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int|null $component_item_id
  * @property int|null $module_item_id
- * @property string|null $language
  * @property string|null $name
  * @property int|null $is_practice
  * @property int|null $user_id
