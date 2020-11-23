@@ -54,7 +54,14 @@ $this->params['breadcrumbs'][] = 'Обновить';
                     }
                 }
 
-                return  mb_substr($model->subject->name,0,1) . ' ' . $model->getSemester() . $count++;
+                $words = preg_split("/[\s,_-]+/", $model->subject->name);
+                $acronym = "";
+
+                foreach ($words as $w) {
+                    $acronym .= mb_substr($w, 0, 1);
+                }
+
+                return $acronym  . ' ' . $model->getSemester() . $count++;
             },
             'label' => 'Код дисциплины',
             'format' => 'raw'
