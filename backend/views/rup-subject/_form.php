@@ -32,6 +32,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'semester')->dropDownList(Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
 
+    <?php if (!$model->isNewRecord): ?>
+    <?= $form->field($model, 'code')->textInput() ?>
+    <?php endif; ?>
+
     <?= $form->field($model, 'amount_lecture')->textInput() ?>
 
     <?= $form->field($model, 'amount_practice')->textInput() ?>

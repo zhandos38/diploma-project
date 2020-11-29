@@ -56,12 +56,26 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'filter' => ArrayHelper::map(Module::find()->asArray()->all(), 'id', 'name')
         ],
         [
+            'attribute' => 'module_item_id',
+            'label' => 'Подмодуль',
+            'value' => function(RupSubject $model) {
+                return $model->subject->moduleItem->name;
+            }
+        ],
+        [
             'attribute' => 'component_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
                 return $model->subject->componentItem->component->name;
             },
             'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
+        ],
+        [
+            'attribute' => 'component_item_id',
+            'label' => 'Подкомпонент',
+            'value' => function(RupSubject $model) {
+                return $model->subject->componentItem->name;
+            }
         ],
         [
             'attribute' => 'subject_id',
@@ -76,7 +90,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'value' => function(RupSubject $model) {
-                return ($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30;
+                return number_format(($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30, 2);
             },
             'label' => 'Кредиты (KZ)'
         ],
