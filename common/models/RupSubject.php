@@ -11,11 +11,13 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property int|null $rup_id
  * @property int|null $subject_id
+ * @property string|null $code
  * @property int|null $language
  * @property int|null $semester
  * @property int|null $amount_lecture
  * @property int|null $amount_practice
  * @property int|null $amount_lab
+ * @property int|null $amount_extra
  * @property int|null $is_course_work
  * @property int|null $is_gos
  * @property int|null $is_exam
@@ -41,6 +43,7 @@ class RupSubject extends \yii\db\ActiveRecord
     {
         return [
             [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'language', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            ['code', 'string'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
         ];
@@ -100,13 +103,13 @@ class RupSubject extends \yii\db\ActiveRecord
     public function getSemester()
     {
         $course = 1;
-        if ($this->semester === 1 && $this->semester === 2) {
+        if ($this->semester === 1 || $this->semester === 2) {
             $course = 1;
-        } else if ($this->semester === 3 && $this->semester === 4) {
+        } else if ($this->semester === 3 || $this->semester === 4) {
             $course = 2;
-        } else if ($this->semester === 5 && $this->semester === 6) {
+        } else if ($this->semester === 5 || $this->semester === 6) {
             $course = 3;
-        } else if ($this->semester === 7 && $this->semester === 8) {
+        } else if ($this->semester === 7 || $this->semester === 8) {
             $course = 4;
         }
 

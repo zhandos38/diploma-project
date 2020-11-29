@@ -44,25 +44,6 @@ $this->params['breadcrumbs'][] = 'Обновить';
 
         [
             'attribute' => 'code',
-            'value' => function(RupSubject $model) {
-                $count = 0;
-                $components = Component::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all();
-                foreach ($components as $component) {
-                    $count++;
-                    if ($component->id === $model->subject->component_id) {
-                        break;
-                    }
-                }
-
-                $words = preg_split("/[\s,_-]+/", $model->subject->name);
-                $acronym = "";
-
-                foreach ($words as $w) {
-                    $acronym .= mb_substr($w, 0, 1);
-                }
-
-                return $acronym  . ' ' . $model->getSemester() . $count++;
-            },
             'label' => 'Код дисциплины',
             'format' => 'raw'
         ],

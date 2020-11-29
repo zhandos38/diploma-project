@@ -2,11 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\Component;
+use common\models\ComponentItem;
 use Yii;
 use common\models\RupSubject;
 use backend\models\RupSubjectSearch;
 use yii\db\Exception;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -87,6 +90,8 @@ class RupSubjectController extends Controller
                 ]);
             }
 
+            $model->code = $this->generateSubjectCode($model);
+
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
             }
@@ -105,12 +110,20 @@ class RupSubjectController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws Exception
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+//            $model->code = $this->generateSubjectCode($model);
+
+            if (!$model->save()) {
+                throw new Exception('Rup subject is not saved');
+            }
+
             return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
@@ -134,6 +147,29 @@ class RupSubjectController extends Controller
         $model->delete();
 
         return $this->redirect(['rup/update', 'id' => $model->id]);
+    }
+
+    public function generateSubjectCode($model) {
+        $count = 0;
+        $components = Component::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+        foreach ($components as $component) {
+            $count++;
+            if ($component->id === $model->subject->componentItem->component_id) {
+                break;
+            }
+        }
+
+        $componentNumber = RupSubject::find()->alias('t1')->leftJoin('subject t2', 't2.id = t1.subject_id')->where(['t2.component_item_id' => $model->subject->component_item_id])->count();
+//        VarDumper::dump($componentNumber,10,1); die;
+
+        $words = preg_split("/[\s,_-]+/", $model->subject->name);
+        $acronym = "";
+
+        foreach ($words as $w) {
+            $acronym .= mb_substr($w, 0, 1);
+        }
+
+        return $acronym  . ' ' . $model->getSemester() . $count . ++$componentNumber;
     }
 
     /**

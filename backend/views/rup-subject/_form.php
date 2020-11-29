@@ -38,6 +38,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'amount_lab')->textInput() ?>
 
+    <?= $form->field($model, 'amount_extra')->textInput() ?>
+
     <?= $form->field($model, 'is_course_work')->checkbox() ?>
 
     <?= $form->field($model, 'is_gos')->checkbox() ?>
