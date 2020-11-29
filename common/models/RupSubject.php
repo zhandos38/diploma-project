@@ -119,9 +119,9 @@ class RupSubject extends \yii\db\ActiveRecord
     public static function getLanguages()
     {
         return [
-            0 => 'KZ',
-            1 => 'RU',
-            2 => 'EN'
+            0 => 'I',
+            1 => 'II',
+            2 => 'III'
         ];
     }
 
