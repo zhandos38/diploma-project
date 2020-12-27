@@ -54,6 +54,8 @@ use yii\widgets\MaskedInput;
 
     <?= $form->field($model, 'social_status')->dropDownList(Student::getSocialStatuses(), ['prompt' => 'Укажите социальный статус']) ?>
 
+    <?= $form->field($model, 'is_grant')->checkbox() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
  * @property string|null $address
  * @property int|null $user_id
  * @property int|null $social_status
+ * @property bool|false $is_grant
  *
  * @property Group $group
  */
@@ -48,6 +49,7 @@ class Student extends \yii\db\ActiveRecord
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['phone', 'phone_parent', 'iin'], 'string', 'max' => 20],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
+            ['is_grant', 'boolean'],
 
             [['surname', 'name', 'group_id', 'iin'], 'required']
         ];
@@ -68,7 +70,8 @@ class Student extends \yii\db\ActiveRecord
             'phone_parent' => 'Телефон родителей',
             'iin' => 'ИИН',
             'address' => 'Адрес',
-            'social_status' => 'Социальное положение'
+            'social_status' => 'Социальное положение',
+            'is_grant' => 'Грант'
         ];
     }
 

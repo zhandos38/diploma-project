@@ -50,6 +50,15 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'filter' => Student::getSocialStatuses()
         ],
+        [
+            'attribute' => 'is_grant',
+            'value' => function(Student $model) {
+                return $model->is_grant ? 'Да' : 'Нет';
+            },
+            'filter' => [
+                'Нет', 'Да'
+            ]
+        ],
 
         [
             'class' => 'yii\grid\ActionColumn',

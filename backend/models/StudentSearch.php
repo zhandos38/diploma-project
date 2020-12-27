@@ -20,6 +20,7 @@ class StudentSearch extends Student
         return [
             [['id', 'group_id', 'social_status'], 'integer'],
             [['surname', 'name', 'patronymic', 'phone', 'phone_parent', 'iin'], 'safe'],
+            ['is_grant', 'boolean']
         ];
     }
 
@@ -63,7 +64,8 @@ class StudentSearch extends Student
         $query->andFilterWhere([
             'id' => $this->id,
             'group_id' => $this->group_id,
-            'social_status' => $this->social_status
+            'social_status' => $this->social_status,
+            'is_grant' => $this->is_grant,
         ]);
 
         $query->andFilterWhere(['like', 'surname', $this->surname])
