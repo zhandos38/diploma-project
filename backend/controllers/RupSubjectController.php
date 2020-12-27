@@ -118,7 +118,7 @@ class RupSubjectController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->code = $this->generateSubjectCode($model);
+//            $model->code = $this->generateSubjectCode($model);
 
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
