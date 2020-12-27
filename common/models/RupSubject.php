@@ -66,7 +66,8 @@ class RupSubject extends \yii\db\ActiveRecord
             'amount_extra' => 'Кол-во часов внеаудиторные',
             'is_course_work' => 'Курсовая работа',
             'is_gos' => 'Гос',
-            'is_exam' => 'Экзамен'
+            'is_exam' => 'Экзамен',
+            'code' => 'Код дисциплины'
         ];
     }
 

@@ -43,11 +43,6 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ['class' => 'yii\grid\SerialColumn'],
 
         [
-            'attribute' => 'code',
-            'label' => 'Код дисциплины',
-            'format' => 'raw'
-        ],
-        [
             'attribute' => 'module_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
@@ -78,6 +73,11 @@ $this->params['breadcrumbs'][] = 'Обновить';
             }
         ],
         [
+            'attribute' => 'code',
+            'label' => 'Код дисциплины',
+            'format' => 'raw'
+        ],
+        [
             'attribute' => 'subject_id',
             'value' => function(RupSubject $model) {
                 return $model->subject->name;
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'value' => function(RupSubject $model) {
-                return number_format(($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30, 2);
+                return round(($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30);
             },
             'label' => 'Кредиты (KZ)'
         ],

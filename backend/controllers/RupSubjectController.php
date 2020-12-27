@@ -118,7 +118,7 @@ class RupSubjectController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-//            $model->code = $this->generateSubjectCode($model);
+            $model->code = $this->generateSubjectCode($model);
 
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
@@ -169,7 +169,7 @@ class RupSubjectController extends Controller
             $acronym .= mb_substr($w, 0, 1);
         }
 
-        return $acronym  . ' ' . $model->getSemester() . $count . ++$componentNumber;
+        return $acronym  . ' ' . $model->getSemester() . $count . sprintf("%02d", ++$componentNumber);
     }
 
     /**
