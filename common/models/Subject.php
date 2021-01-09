@@ -43,7 +43,7 @@ class Subject extends \yii\db\ActiveRecord
             [['module_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModuleItem::className(), 'targetAttribute' => ['module_item_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
 
-            [['name', 'component_item_id', 'module_item_id'], 'required']
+            [['name', 'module_item_id'], 'required']
         ];
     }
 

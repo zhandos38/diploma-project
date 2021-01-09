@@ -12,12 +12,13 @@ use yii\helpers\ArrayHelper;
  * @property int|null $rup_id
  * @property int|null $subject_id
  * @property string|null $code
- * @property int|null $language
+ * @property int|null $lang
  * @property int|null $semester
  * @property int|null $amount_lecture
  * @property int|null $amount_practice
  * @property int|null $amount_lab
- * @property int|null $amount_extra
+ * @property float|null $amount_extra
+ * @property float|null $amount_srop
  * @property int|null $is_course_work
  * @property int|null $is_gos
  * @property int|null $is_exam
@@ -42,8 +43,9 @@ class RupSubject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'language', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'lang', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
             ['code', 'string'],
+            [['amount_extra', 'amount_srop'], 'number'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
         ];
@@ -58,12 +60,13 @@ class RupSubject extends \yii\db\ActiveRecord
             'id' => 'ID',
             'rup_id' => 'РУП',
             'subject_id' => 'Дисциплина',
-            'language' => 'Язык',
+            'lang' => 'Язык',
             'semester' => 'Семестр',
             'amount_lecture' => 'Кол-во часов лекции',
             'amount_practice' => 'Кол-во часов практики',
             'amount_lab' => 'Кол-во часов лабораторных',
             'amount_extra' => 'Кол-во часов внеаудиторные',
+            'amount_srop' => 'Кол-во часов СРОП',
             'is_course_work' => 'Курсовая работа',
             'is_gos' => 'Гос',
             'is_exam' => 'Экзамен',
@@ -128,6 +131,6 @@ class RupSubject extends \yii\db\ActiveRecord
 
     public function getLanguage()
     {
-        return ArrayHelper::getValue(self::getLanguages(), $this->language);
+        return ArrayHelper::getValue(self::getLanguages(), $this->lang);
     }
 }

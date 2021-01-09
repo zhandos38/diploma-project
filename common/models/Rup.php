@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property int|null $specialty_id
- * @property string|null $language
+ * @property int|null $lang
  * @property int|null $degree
  * @property int|null $year
  * @property int|null $mode
@@ -24,6 +24,10 @@ use yii\helpers\ArrayHelper;
  */
 class Rup extends \yii\db\ActiveRecord
 {
+    const LANG_KZ = 0;
+    const LANG_RU = 1;
+    const LANG_EN = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -38,8 +42,7 @@ class Rup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['specialty_id', 'degree', 'year', 'mode', 'user_id'], 'integer'],
-            [['language'], 'string', 'max' => 2],
+            [['specialty_id', 'degree', 'year', 'mode', 'user_id', 'lang'], 'integer'],
             [['specialty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['specialty_id' => 'id']],
         ];
     }
@@ -52,7 +55,7 @@ class Rup extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'specialty_id' => 'Образовательная программа ',
-            'language' => 'Язык',
+            'lang' => 'Язык',
             'degree' => 'Уровень обучения',
             'year' => 'Начало обучения',
             'mode' => 'Форма обучения'
@@ -87,5 +90,18 @@ class Rup extends \yii\db\ActiveRecord
     public function getRupSubjects()
     {
         return $this->hasMany(RupSubject::className(), ['rup_id' => 'id']);
+    }
+
+    public static function getLanguages() {
+        return [
+            self::LANG_KZ => 'KZ',
+            self::LANG_RU => 'RU',
+            self::LANG_EN => 'EN'
+        ];
+    }
+
+    public function getLanguage()
+    {
+        return ArrayHelper::getValue(self::getLanguages(), $this->lang);
     }
 }

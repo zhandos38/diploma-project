@@ -3,6 +3,7 @@
 use common\models\Component;
 use common\models\Helper;
 use common\models\Module;
+use common\models\ModuleItem;
 use common\models\RupSubject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'isSolid' => true,
         'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['rup-subject/create', 'rup' => $model->id], ['class' => 'btn btn-success btn-xs create_button']),
         'tooltip' => 'this tooltip description',
-        'title' => 'Предметы'
+        'title' => 'Дисциплины'
     ]) ?>
 
     <?php
@@ -55,7 +56,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'label' => 'Подмодуль',
             'value' => function(RupSubject $model) {
                 return $model->subject->moduleItem->name;
-            }
+            },
+            'filter' => false
         ],
         [
             'attribute' => 'component_id',
@@ -70,7 +72,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'label' => 'Подкомпонент',
             'value' => function(RupSubject $model) {
                 return $model->subject->componentItem->name;
-            }
+            },
+            'filter' => false
         ],
         [
             'attribute' => 'code',
@@ -85,19 +88,52 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'filter' => ArrayHelper::map(\common\models\Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
         ],
         [
+            'attribute' => 'lang',
+            'value' => function(RupSubject $model) {
+                return $model->getLanguage();
+            },
+            'filter' => RupSubject::getLanguages(),
+            'contentOptions' => ['class' => 'text-center']
+        ],
+        [
             'attribute' => 'semester',
-            'filter' => \common\models\Helper::getSemesters()
+            'filter' => \common\models\Helper::getSemesters(),
+            'contentOptions' => ['class' => 'text-center']
         ],
         [
             'value' => function(RupSubject $model) {
-                return round(($model->amount_lecture + $model->amount_practice + $model->amount_lab)/30);
+                return round(( $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
             },
-            'label' => 'Кредиты (KZ)'
+            'label' => 'Кредиты (KZ)',
+            'contentOptions' => ['class' => 'text-center']
         ],
-        'amount_lecture',
-        'amount_practice',
-        'amount_lab',
-        'amount_extra',
+        [
+            'value' => function(RupSubject $model) {
+                return $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
+            },
+            'label' => 'Всего часов',
+            'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+        ],
+        [
+            'attribute' => 'amount_lecture',
+            'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+        ],
+        [
+            'attribute' => 'amount_lab',
+            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+        ],
+        [
+            'attribute' => 'amount_practice',
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
+        ],
+        [
+            'attribute' => 'amount_extra',
+            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+        ],
+        [
+            'attribute' => 'amount_srop',
+            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+        ],
         [
             'attribute' => 'is_course_work',
             'value' => function(RupSubject $model) {

@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subject_id')->dropDownList(ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите дисциплину']) ?>
 
-    <?= $form->field($model, 'language')->dropDownList(RupSubject::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+    <?= $form->field($model, 'lang')->dropDownList(RupSubject::getLanguages(), ['prompt' => 'Выберите язык']) ?>
 
     <?= $form->field($model, 'semester')->dropDownList(Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
 
@@ -43,6 +43,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'amount_lab')->textInput() ?>
 
     <?= $form->field($model, 'amount_extra')->textInput() ?>
+
+    <?= $form->field($model, 'amount_srop')->textInput() ?>
 
     <?= $form->field($model, 'is_course_work')->checkbox() ?>
 

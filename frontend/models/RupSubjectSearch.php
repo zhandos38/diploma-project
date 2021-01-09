@@ -49,10 +49,11 @@ class RupSubjectSearch extends RupSubject
     public function search($params, $rup_id)
     {
         $query = RupSubject::find()
-                ->joinWith('subject as t2')
-                ->leftJoin('module_item as t3' , ['t2.module_item_id' => 't3.id'])
-                ->leftJoin('component_item as t4' , ['t2.component_item_id' => 't4.id'])
-                ->where(['rup_id' => $rup_id]);
+            ->alias('t1')
+            ->joinWith('subject as t2')
+            ->leftJoin('module_item as t3' , 't3.id = t2.module_item_id')
+            ->leftJoin('component_item as t4' , 't4.id = t2.component_item_id')
+            ->where(['t1.rup_id' => $rup_id]);
 
         // add conditions that should always apply here
 
@@ -70,17 +71,17 @@ class RupSubjectSearch extends RupSubject
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'rup_id' => $this->rup_id,
-            'subject_id' => $this->subject_id,
-            'language' => $this->language,
-            'semester' => $this->semester,
-            'amount_lecture' => $this->amount_lecture,
-            'amount_practice' => $this->amount_practice,
-            'amount_lab' => $this->amount_lab,
-            'is_course_work' => $this->is_course_work,
-            'is_gos' => $this->is_gos,
-            'is_exam' => $this->is_exam,
+            't1.id' => $this->id,
+            't1.rup_id' => $this->rup_id,
+            't1.subject_id' => $this->subject_id,
+            't1.lang' => $this->lang,
+            't1.semester' => $this->semester,
+            't1.amount_lecture' => $this->amount_lecture,
+            't1.amount_practice' => $this->amount_practice,
+            't1.amount_lab' => $this->amount_lab,
+            't1.is_course_work' => $this->is_course_work,
+            't1.is_gos' => $this->is_gos,
+            't1.is_exam' => $this->is_exam,
 
             't2.module_item_id' => $this->module_item_id,
             't2.component_item_id' => $this->component_item_id,

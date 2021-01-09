@@ -20,21 +20,6 @@ class Helper
         ];
     }
 
-    const FIRST_LANG = 0;
-    const SECOND_LANG = 1;
-    const THIRD_LANG = 2;
-
-    public static function getLanguages() {
-        return [
-            self::FIRST_LANG => 'I', self::SECOND_LANG => 'II', self::THIRD_LANG => 'III'
-        ];
-    }
-
-    public static function getLanguage($language)
-    {
-        return ArrayHelper::getValue(self::getLanguages(), $language);
-    }
-
     public static function getSemesters() {
         $semester = [];
         for ($i = 1; $i <= 8; $i++) {

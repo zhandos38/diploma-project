@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Helper;
+use common\models\Rup;
 use common\models\Specialty;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
@@ -33,7 +34,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'degree')->dropDownList(Helper::getDegrees(), ['prompt' => 'Выбрите степень']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'language')->dropDownList(Helper::getLanguages(), ['prompt' => 'Выберите язык']) ?>
+            <?= $form->field($model, 'lang')->dropDownList(Rup::getLanguages(), ['prompt' => 'Выберите язык']) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'mode')->dropDownList(Helper::getModes(), ['prompt' => 'Выберите форму обучение']) ?>

@@ -53,11 +53,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Helper::getModes()
             ],
             [
-                'attribute' => 'language',
+                'attribute' => 'lang',
                 'value' => function(Rup $model) {
-                    return Helper::getLanguage($model->language);
+                    return $model->getLanguage();
                 },
-                'filter' => Helper::getLanguages()
+                'filter' => Rup::getLanguages()
             ],
             'year',
         ];

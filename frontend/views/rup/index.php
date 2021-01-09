@@ -30,37 +30,37 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
-        $columns = [
-            [
-                'attribute' => 'specialty_id',
-                'value' => function(Rup $model) {
-                    return $model->specialty->name;
-                },
-                'filter' => ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name')
-            ],
-            [
-                'attribute' => 'degree',
-                'value' => function(Rup $model) {
-                    return ArrayHelper::getValue(Helper::getDegrees(), $model->degree);
-                },
-                'filter' => Helper::getDegrees()
-            ],
-            [
-                'attribute' => 'mode',
-                'value' => function(Rup $model) {
-                    return ArrayHelper::getValue(Helper::getModes(), $model->mode);
-                },
-                'filter' => Helper::getModes()
-            ],
-            [
-                'attribute' => 'language',
-                'value' => function(Rup $model) {
-                    return Helper::getLanguage($model->language);
-                },
-                'filter' => Helper::getLanguages()
-            ],
-            'year',
-        ];
+    $columns = [
+        [
+            'attribute' => 'specialty_id',
+            'value' => function(Rup $model) {
+                return $model->specialty->name;
+            },
+            'filter' => ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name')
+        ],
+        [
+            'attribute' => 'degree',
+            'value' => function(Rup $model) {
+                return ArrayHelper::getValue(Helper::getDegrees(), $model->degree);
+            },
+            'filter' => Helper::getDegrees()
+        ],
+        [
+            'attribute' => 'mode',
+            'value' => function(Rup $model) {
+                return ArrayHelper::getValue(Helper::getModes(), $model->mode);
+            },
+            'filter' => Helper::getModes()
+        ],
+        [
+            'attribute' => 'lang',
+            'value' => function(Rup $model) {
+                return $model->getLanguage();
+            },
+            'filter' => Rup::getLanguages()
+        ],
+        'year',
+    ];
     ?>
 
     <?= ExportMenu::widget([

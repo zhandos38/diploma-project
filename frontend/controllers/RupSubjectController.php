@@ -116,14 +116,7 @@ class RupSubjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-
-//            $model->code = $this->generateSubjectCode($model);
-
-            if (!$model->save()) {
-                throw new Exception('Rup subject is not saved');
-            }
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
@@ -146,7 +139,7 @@ class RupSubjectController extends Controller
         $model = $this->findModel($id);
         $model->delete();
 
-        return $this->redirect(['rup/update', 'id' => $model->id]);
+        return $this->redirect(['rup/update', 'id' => $model->rup_id]);
     }
 
     public function generateSubjectCode($model) {
