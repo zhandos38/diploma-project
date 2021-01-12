@@ -1,6 +1,10 @@
 <?php
 
+use common\models\Component;
+use common\models\ComponentItem;
 use common\models\Helper;
+use common\models\Module;
+use common\models\ModuleItem;
 use common\models\RupSubject;
 use common\models\Subject;
 use insolita\wgadminlte\LteBox;
@@ -28,6 +32,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subject_id')->dropDownList(ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите дисциплину']) ?>
 
+    <?= $form->field($model, 'component_id')->dropDownList(ArrayHelper::map(Component::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['id' => 'component-id', 'prompt' => 'Выберите компонент', 'value' => $model->subject ? $model->subject->componentItem->component_id : null]) ?>
+
+    <?= $form->field($model, 'component_item_id')->dropDownList(ArrayHelper::map(ComponentItem::find()->asArray()->all(), 'id', 'name'), ['id' => 'component-item-id', 'prompt' => 'Выберите подкомпонент', 'value' => $model->subject ? $model->subject->component_item_id : null]) ?>
+
+    <?= $form->field($model, 'module_id')->dropDownList(ArrayHelper::map(Module::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['id' => 'module-id', 'prompt' => 'Выберите модуль', 'value' => $model->subject ? $model->subject->moduleItem->module_id : null]) ?>
+
+    <?= $form->field($model, 'module_item_id')->dropDownList(ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name'), ['id' => 'module-item-id', 'prompt' => 'Выберите подмодуль', 'value' => $model->subject ? $model->subject->module_item_id : null]) ?>
+
     <?= $form->field($model, 'lang')->dropDownList(RupSubject::getLanguages(), ['prompt' => 'Выберите язык']) ?>
 
     <?= $form->field($model, 'semester')->dropDownList(Helper::getSemesters(), ['prompt' => 'Выберите семестр']) ?>
@@ -38,9 +50,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'amount_lecture')->textInput() ?>
 
-    <?= $form->field($model, 'amount_practice')->textInput() ?>
-
     <?= $form->field($model, 'amount_lab')->textInput() ?>
+
+    <?= $form->field($model, 'amount_practice')->textInput() ?>
 
     <?= $form->field($model, 'amount_extra')->textInput() ?>
 
@@ -61,3 +73,47 @@ use yii\widgets\ActiveForm;
     <?php LteBox::end() ?>
 
 </div>
+<?php
+$js =<<<JS
+$('#component-id').change(function() {
+  $.get({
+    url: '/component/get-component-items',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      let options = '<option value>Выбрите подкомпонент</option>';
+      result.forEach(function(item) {
+        options += '<option value="' + item.id + '">' + item.name + '</option>'; 
+      });
+      
+      $('#component-item-id').html(options);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+
+$('#module-id').change(function() {
+  $.get({
+    url: '/module/get-module-items',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      let options = '<option value>Выберите подмодуль</option>';
+      result.forEach(function(item) {
+        options += '<option value="' + item.id + '">' + item.name + '</option>'; 
+      });
+      
+      $('#module-item-id').html(options);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+JS;
+
+$this->registerJs($js);
+
+?>

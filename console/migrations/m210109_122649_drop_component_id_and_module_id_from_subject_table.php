@@ -14,8 +14,6 @@ class m210109_122649_drop_component_id_and_module_id_from_subject_table extends 
      */
     public function safeUp()
     {
-        $this->dropForeignKey('fk-subject-subject_type_id-subject_type-id', $this->tableName);
-
         $this->dropColumn($this->tableName, 'component_id');
         $this->dropColumn($this->tableName, 'module_id');
     }

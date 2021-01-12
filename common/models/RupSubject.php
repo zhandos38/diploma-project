@@ -11,6 +11,8 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property int|null $rup_id
  * @property int|null $subject_id
+ * @property int|null $component_item_id
+ * @property int|null $module_item_id
  * @property string|null $code
  * @property int|null $lang
  * @property int|null $semester
@@ -26,9 +28,15 @@ use yii\helpers\ArrayHelper;
  * @property Rup $rup
  * @property Subject $subject
  * @property TeachersLoad[] $teachersLoads
+ * @property Component $componentItem
+ * @property Module $moduleItem
+ *
  */
 class RupSubject extends \yii\db\ActiveRecord
 {
+    public $component_id;
+    public $module_id;
+
     /**
      * {@inheritdoc}
      */
@@ -43,11 +51,13 @@ class RupSubject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'lang', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'lang', 'is_course_work', 'is_gos', 'is_exam', 'component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer'],
             ['code', 'string'],
             [['amount_extra', 'amount_srop'], 'number'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
+
+            [['component_item_id', 'module_item_id'], 'required']
         ];
     }
 
@@ -60,6 +70,10 @@ class RupSubject extends \yii\db\ActiveRecord
             'id' => 'ID',
             'rup_id' => 'РУП',
             'subject_id' => 'Дисциплина',
+            'component_id' => 'Компонент',
+            'component_item_id' => 'Подкомпонент',
+            'module_id' => 'Модуль',
+            'module_item_id' => 'Подмодуль',
             'lang' => 'Язык',
             'semester' => 'Семестр',
             'amount_lecture' => 'Кол-во часов лекции',
@@ -132,5 +146,24 @@ class RupSubject extends \yii\db\ActiveRecord
     public function getLanguage()
     {
         return ArrayHelper::getValue(self::getLanguages(), $this->lang);
+    }
+
+    /**
+     * Gets query for [[ComponentItem]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComponentItem()
+    {
+        return $this->hasOne(ComponentItem::className(), ['id' => 'component_item_id']);
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModuleItem()
+    {
+        return $this->hasOne(ModuleItem::className(), ['id' => 'module_item_id']);
     }
 }

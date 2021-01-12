@@ -143,16 +143,15 @@ class RupSubjectController extends Controller
     }
 
     public function generateSubjectCode($model) {
-        $count = 0;
+        $count = 1;
         $components = Component::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all();
         foreach ($components as $component) {
-            $count++;
-            if ($component->id === $model->subject->componentItem->component_id) {
+            if ($component->id === $model->componentItem->component_id) {
                 break;
             }
         }
 
-        $componentNumber = RupSubject::find()->alias('t1')->leftJoin('subject t2', 't2.id = t1.subject_id')->where(['t2.component_item_id' => $model->subject->component_item_id])->count();
+        $componentNumber = RupSubject::find()->where(['component_item_id' => $model->component_item_id])->count();
 //        VarDumper::dump($componentNumber,10,1); die;
 
         $words = preg_split("/[\s,_-]+/", $model->subject->name);

@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'attribute' => 'module_id',
             'label' => 'Модуль',
             'value' => function(RupSubject $model) {
-                return $model->subject->moduleItem->module->name;
+                return $model->moduleItem->module->name;
             },
             'filter' => ArrayHelper::map(Module::find()->asArray()->all(), 'id', 'name')
         ],
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'attribute' => 'module_item_id',
             'label' => 'Подмодуль',
             'value' => function(RupSubject $model) {
-                return $model->subject->moduleItem->name;
+                return $model->moduleItem->name;
             },
             'filter' => false
         ],
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'attribute' => 'component_id',
             'label' => 'Компонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->componentItem->component->name;
+                return $model->componentItem->component->name;
             },
             'filter' => ArrayHelper::map(Component::find()->asArray()->all(), 'id', 'name')
         ],
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             'attribute' => 'component_item_id',
             'label' => 'Подкомпонент',
             'value' => function(RupSubject $model) {
-                return $model->subject->componentItem->name;
+                return $model->componentItem->name;
             },
             'filter' => false
         ],
