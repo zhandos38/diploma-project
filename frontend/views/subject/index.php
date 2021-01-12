@@ -40,28 +40,28 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'component_id',
                 'value' => function(Subject $model) {
-                    return $model->componentItem->component->name;
+                    return !empty($model->componentItem) ? $model->componentItem->component->name : 'Не указано';
                 },
                 'filter' => ArrayHelper::map(Component::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
             ],
             [
                 'attribute' => 'component_item_id',
                 'value' => function(Subject $model) {
-                    return $model->componentItem->name;
+                    return !empty($model->componentItem) ? $model->componentItem->name : 'Не указано';
                 },
 //                'filter' => ArrayHelper::map(ComponentItem::find()->asArray()->all(), 'id', 'name')
             ],
             [
                 'attribute' => 'module_id',
                 'value' => function(Subject $model) {
-                    return $model->moduleItem->module->name;
+                    return !empty($model->moduleItem) ? $model->moduleItem->module->name : 'Не указано';
                 },
                 'filter' => ArrayHelper::map(Module::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name')
             ],
             [
                 'attribute' => 'module_item_id',
                 'value' => function(Subject $model) {
-                    return $model->moduleItem->name;
+                    return !empty($model->moduleItem) ? $model->moduleItem->name : 'Не указано';
                 },
 //                'filter' => ArrayHelper::map(ModuleItem::find()->asArray()->all(), 'id', 'name')
             ],
