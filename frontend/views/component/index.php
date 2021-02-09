@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\ComponentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Компонент';
+$this->title = 'Циклы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="component-index">

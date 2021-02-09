@@ -28,7 +28,7 @@
                     ['label' => 'Дисциплины', 'icon' => 'fas fa-book', 'url' => ['subject/index']],
 //                    ['label' => 'Типы дисциплин', 'icon' => 'fas fa-book', 'url' => ['subject-type/index']],
                     ['label' => 'Модули', 'icon' => 'fas fa-book', 'url' => ['module/index']],
-                    ['label' => 'Компоненты', 'icon' => 'fas fa-book', 'url' => ['component/index']],
+                    ['label' => 'Циклы', 'icon' => 'fas fa-book', 'url' => ['component/index']],
                 ],
             ]
         ) ?>

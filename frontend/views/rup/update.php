@@ -8,7 +8,7 @@ use common\models\RupSubject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = 'Обновить';
     ]) ?>
 
     <?php
-
     $columns = [
         ['class' => 'yii\grid\SerialColumn'],
 
@@ -61,7 +60,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'attribute' => 'component_id',
-            'label' => 'Компонент',
+            'label' => 'Цикл',
             'value' => function(RupSubject $model) {
                 return $model->componentItem->component->name;
             },
@@ -69,7 +68,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'attribute' => 'component_item_id',
-            'label' => 'Подкомпонент',
+            'label' => 'Подцикл',
             'value' => function(RupSubject $model) {
                 return $model->componentItem->name;
             },
@@ -97,15 +96,15 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'attribute' => 'semester',
-            'filter' => \common\models\Helper::getSemesters(),
+            'filter' => Helper::getSemesters(),
             'contentOptions' => ['class' => 'text-center']
         ],
         [
             'value' => function(RupSubject $model) {
-                return round(( $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
+                return round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
             },
             'label' => 'Кредиты (KZ)',
-            'contentOptions' => ['class' => 'text-center']
+            'contentOptions' => ['class' => 'text-center'],
         ],
         [
             'value' => function(RupSubject $model) {
@@ -190,10 +189,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => [
-            'class' => 'table-responsive'
-        ],
         'columns' => $columns,
+        'showPageSummary' => true
     ]); ?>
 
     <?php LteBox::end() ?>

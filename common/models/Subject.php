@@ -54,8 +54,8 @@ class Subject extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'component_id' => 'Компонент',
-            'component_item_id' => 'Подкомпонент',
+            'component_id' => 'Цикл',
+            'component_item_id' => 'Подциклы',
             'module_id' => 'Модуль',
             'module_item_id' => 'Подмодуль',
             'name' => 'Наименование',

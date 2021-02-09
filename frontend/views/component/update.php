@@ -12,8 +12,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\Component */
 
-$this->title = 'Компонент: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Компоненты', 'url' => ['index']];
+$this->title = 'Цикл: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Циклы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>

@@ -37,7 +37,7 @@ class Helper
 
     public static function getSemesters() {
         $semester = [];
-        for ($i = 1; $i <= 8; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             $semester[$i] = $i . ' семестр';
         }
 
