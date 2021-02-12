@@ -183,7 +183,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
     <?= ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $columns,
-        'filename' => $model->specialty->name . '-' . $model->language . '-' . ArrayHelper::getValue(Helper::getDegrees(), $model->degree) . '-' . ArrayHelper::getValue(Helper::getModes(), $model->mode) . '-' . $model->year,
+        'filename' => 'РУП',
     ]); ?>
 
     <?= GridView::widget([
