@@ -17,7 +17,7 @@ use yii\helpers\Url;
 /* @var $model common\models\Rup */
 
 $this->title = 'Обновить РУП: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Rups', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Список РУП-ов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>
