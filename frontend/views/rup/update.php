@@ -105,6 +105,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
             },
             'label' => 'Кредиты (KZ)',
             'contentOptions' => ['class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'value' => function(RupSubject $model) {
@@ -112,26 +113,32 @@ $this->params['breadcrumbs'][] = 'Обновить';
             },
             'label' => 'Всего часов',
             'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'amount_lecture',
             'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'amount_lab',
             'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'amount_practice',
             'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'amount_extra',
             'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'amount_srop',
             'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'pageSummary' => true
         ],
         [
             'attribute' => 'is_course_work',
@@ -190,7 +197,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $columns,
-        'showPageSummary' => true
+        'showPageSummary' => true,
+        'showFooter' => true
     ]); ?>
 
     <?php LteBox::end() ?>
