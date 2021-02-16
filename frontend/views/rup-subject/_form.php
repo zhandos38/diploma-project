@@ -32,6 +32,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'subject_id')->widget(Select2::classname(), [
+        'id' => 'subject-id',
         'data' => ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'),
         'options' => ['placeholder' => 'Укажите дисциплину'],
         'pluginOptions' => [
@@ -82,6 +83,21 @@ use yii\widgets\ActiveForm;
 </div>
 <?php
 $js =<<<JS
+$('#rupsubject-subject_id').change(function() {
+  $.get({
+    url: '/subject/get-subject',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      $('#component-item-id').val(result['module_id']);
+      $('#module-item-id').val(result['component_id']);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+
 $('#component-id').change(function() {
   $.get({
     url: '/component/get-component-items',

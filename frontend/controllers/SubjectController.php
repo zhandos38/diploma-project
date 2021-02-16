@@ -6,6 +6,7 @@ use Yii;
 use common\models\Subject;
 use frontend\models\SubjectSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -118,6 +119,15 @@ class SubjectController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetSubject($id)
+    {
+        $model = $this->findModel($id);
+        return Json::encode([
+            'module_id' => $model->module_item_id,
+            'component_id' => $model->component_item_id,
+        ]);
     }
 
     /**

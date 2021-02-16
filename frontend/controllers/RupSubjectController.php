@@ -9,6 +9,7 @@ use common\models\RupSubject;
 use frontend\models\RupSubjectSearch;
 use yii\db\Exception;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
