@@ -27,7 +27,7 @@
         "boundstate/yii2-mailgun": "^1.0",
         "vova07/yii2-imperavi-widget": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "kartik-v/yii2-export": "@dev"
+        "kartik-v/yii2-export": "^1.3.9"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

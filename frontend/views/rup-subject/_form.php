@@ -9,6 +9,7 @@ use common\models\RupSubject;
 use common\models\Subject;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
+use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -30,7 +31,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'subject_id')->dropDownList(ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите дисциплину']) ?>
+    <?= $form->field($model, 'subject_id')->widget(Select2::classname(), [
+        'id' => 'subject-id',
+        'data' => ArrayHelper::map(Subject::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'),
+        'options' => ['placeholder' => 'Укажите дисциплину'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'component_id')->dropDownList(ArrayHelper::map(Component::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->all(), 'id', 'name'), ['id' => 'component-id', 'prompt' => 'Выберите компонент', 'value' => $model->subject ? $model->subject->componentItem->component_id : null]) ?>
 
@@ -75,6 +83,21 @@ use yii\widgets\ActiveForm;
 </div>
 <?php
 $js =<<<JS
+$('#rupsubject-subject_id').change(function() {
+  $.get({
+    url: '/subject/get-subject',
+    data: {id: $(this).val()},
+    dataType: 'JSON',
+    success: function(result) {
+      $('#component-item-id').val(result['module_id']);
+      $('#module-item-id').val(result['component_id']);
+    },
+    error: function() {
+      console.log('Ошибка');
+    }
+  });
+});
+
 $('#component-id').change(function() {
   $.get({
     url: '/component/get-component-items',

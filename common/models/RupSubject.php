@@ -77,7 +77,7 @@ class RupSubject extends \yii\db\ActiveRecord
             'lang' => 'Язык',
             'semester' => 'Семестр',
             'amount_lecture' => 'Кол-во часов лекции',
-            'amount_practice' => 'Кол-во часов практики',
+            'amount_practice' => 'Кол-во часов практических занятий',
             'amount_lab' => 'Кол-во часов лабораторных',
             'amount_extra' => 'Кол-во часов внеаудиторные',
             'amount_srop' => 'Кол-во часов СРОП',

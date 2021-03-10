@@ -23,7 +23,7 @@ class RupSubjectSearch extends RupSubject
     public function rules()
     {
         return [
-            [['id', 'rup_id', 'subject_id', 'lang', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam'], 'integer'],
+            [['id', 'rup_id', 'subject_id', 'lang', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'is_course_work', 'is_gos', 'is_exam', 'amount_extra', 'amount_srop'], 'integer'],
 
             ['code', 'string', 'max' => 255],
             [['component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer']
