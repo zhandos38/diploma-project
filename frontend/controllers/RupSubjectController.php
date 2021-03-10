@@ -142,15 +142,12 @@ class RupSubjectController extends Controller
         return $this->redirect(['rup/update', 'id' => $model->rup_id]);
     }
 
+    /**
+     * @param $model RupSubject
+     * @return string
+     */
     public function generateSubjectCode($model) {
-        $count = 1;
-        $components = Component::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all();
-        foreach ($components as $component) {
-            if ($component->id === $model->componentItem->component_id) {
-                break;
-            }
-        }
-
+        $moduleNumber = RupSubject::find()->where(['module_item_id' => $model->module_item_id])->count();
         $componentNumber = RupSubject::find()->where(['component_item_id' => $model->component_item_id])->count();
 //        VarDumper::dump($componentNumber,10,1); die;
 
@@ -161,7 +158,7 @@ class RupSubjectController extends Controller
             $acronym .= mb_substr($w, 0, 1);
         }
 
-        return $acronym  . ' ' . $model->getSemester() . $count . sprintf("%02d", ++$componentNumber);
+        return $acronym  . ' ' . $model->getSemester() . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
     }
 
     /**
