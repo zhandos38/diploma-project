@@ -84,7 +84,7 @@ class RupSubjectController extends Controller
         $model->rup_id = $rup;
 
         if ($model->load(Yii::$app->request->post())) {
-            if (RupSubject::findOne(['subject_id' => $model->subject_id])) {
+            if (RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
                 Yii::$app->session->setFlash('error', 'Данный предмет уже добавлен');
                 return $this->render('create', [
                     'model' => $model,
