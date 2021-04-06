@@ -120,7 +120,8 @@ class RupSubject extends \yii\db\ActiveRecord
 
     public function getSemester()
     {
-        $course = 1;
+        $course = 0;
+        $this->semester = (int)$this->semester;
         if ($this->semester === 1 || $this->semester === 2) {
             $course = 1;
         } else if ($this->semester === 3 || $this->semester === 4) {

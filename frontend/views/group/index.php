@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->rup->specialty->name . ' - ' . $model->rup->year . ' - ' . $model->rup->language;
             },
             'filter' => ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', function($model) {
-                return $model['year'] . ' - ' . $model['language'];
+                return $model['year'] . ' - ' . $model['lang'];
             })
         ],
 
