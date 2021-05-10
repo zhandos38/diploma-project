@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'specialty_id',
             'value' => function(Group $model) {
-                return $model->specialty->name;
+                return $model->specialty ? $model->specialty->name : 'Не указано';
             },
             'filter' => ArrayHelper::map(\common\models\Specialty::find()->asArray()->all(), 'id', 'name')
         ],
