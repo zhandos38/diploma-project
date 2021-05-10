@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'rup_id',
             'value' => function(Group $model) {
-                return $model->rup->specialty->name . ' - ' . $model->rup->year . ' - ' . $model->rup->language;
+                return $model->rup && $model->rup->specialty ? $model->rup->specialty->name . ' - ' . $model->rup->year . ' - ' . $model->rup->language : 'Не указано';
             },
             'filter' => ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', function($model) {
                 return $model['year'] . ' - ' . $model['lang'];
