@@ -91,6 +91,8 @@ class RupSubjectController extends Controller
                 ]);
             }
 
+            VarDumper::dump($model->getErrors(),10,1); die;
+
             $model->code = $this->generateSubjectCode($model);
 
             if (!$model->save()) {
