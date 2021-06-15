@@ -86,7 +86,7 @@ a.desc:after {
     background-image: linear-gradient(
             rgba(0, 0, 0, 0.8),
             rgba(0, 0, 0, 0.8)
-    ), url("/img/city-bg.jpg");
+    ), url("/img/bg-1.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -101,10 +101,15 @@ a.desc:after {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 .skin-blue .main-header .navbar {
-    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%) !important;
+    background-color: #0d6efd !important;
 }
 .skin-blue .main-header .logo {
-    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fea1ab 100%) !important;
+    background-color: unset !important;
+}
+
+.jumbotron p {
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .hint-block {
