@@ -93,8 +93,6 @@ class RupSubjectController extends Controller
 
             $model->code = $this->generateSubjectCode($model);
 
-            VarDumper::dump($model,10,1); die;
-
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
             }
