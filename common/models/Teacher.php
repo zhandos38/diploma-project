@@ -26,6 +26,8 @@ class Teacher extends \yii\db\ActiveRecord
     const BACHELOR = 0;
     const MASTER = 1;
     const DOCTOR = 2;
+    const PROFESSOR = 3;
+    const CANDIDATE = 4;
 
     /**
      * {@inheritdoc}
@@ -78,9 +80,10 @@ class Teacher extends \yii\db\ActiveRecord
 
     public static function getDegrees() {
         return [
-            self::BACHELOR => 'Бакалавр',
             self::MASTER => 'Магистр',
-            self::DOCTOR => 'Доктор'
+            self::DOCTOR => 'Доктор',
+            self::PROFESSOR => 'Профессор',
+            self::CANDIDATE => 'Кандидат наук'
         ];
     }
 
