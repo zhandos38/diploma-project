@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'enter_year')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'rup_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Rup::find()->asArray()->all(), 'id', function ($model) {
-        return $model['year'] . ' - ' . $model['language'];
+        return $model['year'] . ' - ' . $model['lang'];
     }), ['prompt' => 'Выберите РУП']) ?>
 
     <div class="form-group">
