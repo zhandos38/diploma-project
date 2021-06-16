@@ -16,7 +16,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\RupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'РУП';
+$this->title = 'Учебный план';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rup-index">

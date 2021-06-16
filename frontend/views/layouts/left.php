@@ -18,7 +18,7 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Разделы', 'options' => ['class' => 'header']],
-                    ['label' => 'РУП', 'icon' => 'fas fa-book', 'url' => ['rup/index']],
+                    ['label' => 'УП', 'icon' => 'fas fa-book', 'url' => ['rup/index']],
                     ['label' => 'ППС', 'icon' => 'fas fa-group', 'url' => ['teacher/index']],
                     ['label' => 'Пед. нагрузка', 'icon' => 'fas fa-group', 'url' => ['teachers-load/index']],
                     ['label' => 'Группы', 'icon' => 'fas fa-group', 'url' => ['group/index']],

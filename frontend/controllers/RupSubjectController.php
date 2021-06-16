@@ -148,8 +148,8 @@ class RupSubjectController extends Controller
      * @return string
      */
     public function generateSubjectCode($model) {
-        $moduleNumber = RupSubject::find()->where(['module_item_id' => $model->module_item_id])->count();
-        $componentNumber = RupSubject::find()->where(['component_item_id' => $model->component_item_id])->count();
+        $moduleNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'module_item_id' => $model->module_item_id])->count();
+        $componentNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'component_item_id' => $model->component_item_id])->count();
 //        VarDumper::dump($componentNumber,10,1); die;
 
         $words = preg_split("/[\s,_-]+/", $model->subject->name);
