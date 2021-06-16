@@ -46,7 +46,7 @@ class Group extends \yii\db\ActiveRecord
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['specialty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['specialty_id' => 'id']],
 
-            [['name', 'language', 'degree', 'enter_year', 'speciality_id'], 'required']
+            [['name', 'language', 'degree', 'enter_year', 'specialty_id'], 'required']
         ];
     }
 
