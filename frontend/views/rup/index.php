@@ -1,9 +1,8 @@
 <?php
 
-use common\models\Education;
-use common\models\EducationDirection;
 use common\models\Helper;
 use common\models\Rup;
+use common\models\User;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
@@ -65,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= ExportMenu::widget([
         'dataProvider' => $dataProvider,
-        'columns' => $columns
+        'columns' => $columns,
     ]); ?>
 
     <?php
