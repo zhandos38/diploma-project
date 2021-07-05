@@ -2,18 +2,18 @@
 
 namespace frontend\controllers;
 
-use Yii;
-use common\models\Specialty;
 use frontend\models\SpecialtySearch;
-use yii\filters\AccessControl;
+use Yii;
+use common\models\SpecialtyGroup;
+use frontend\models\SepcialtyGroupSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SpecialtyController implements the CRUD actions for Specialty model.
+ * SpecialtyGroupController implements the CRUD actions for SpecialtyGroup model.
  */
-class SpecialtyController extends Controller
+class SpecialtyGroupController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,15 +21,6 @@ class SpecialtyController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['user']
-                    ]
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -40,12 +31,12 @@ class SpecialtyController extends Controller
     }
 
     /**
-     * Lists all Specialty models.
+     * Lists all SpecialtyGroup models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SpecialtySearch();
+        $searchModel = new SepcialtyGroupSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,7 +46,7 @@ class SpecialtyController extends Controller
     }
 
     /**
-     * Displays a single Specialty model.
+     * Displays a single SpecialtyGroup model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,17 +59,17 @@ class SpecialtyController extends Controller
     }
 
     /**
-     * Creates a new Specialty model.
+     * Creates a new SpecialtyGroup model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($specialtyGroupId)
+    public function actionCreate()
     {
-        $model = new Specialty();
-        $model->specialty_group_id = $specialtyGroupId;
+        $model = new SpecialtyGroup();
+        $model->user_id = Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['specialty-group/update', 'id' => $model->specialty_group_id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +78,7 @@ class SpecialtyController extends Controller
     }
 
     /**
-     * Updates an existing Specialty model.
+     * Updates an existing SpecialtyGroup model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,16 +89,21 @@ class SpecialtyController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['specialty-group/update', 'id' => $model->specialty_group_id]);
+            return $this->redirect(['index']);
         }
+
+        $searchModel = new SpecialtySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->id);
 
         return $this->render('update', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Deletes an existing Specialty model.
+     * Deletes an existing SpecialtyGroup model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -121,15 +117,15 @@ class SpecialtyController extends Controller
     }
 
     /**
-     * Finds the Specialty model based on its primary key value.
+     * Finds the SpecialtyGroup model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Specialty the loaded model
+     * @return SpecialtyGroup the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Specialty::findOne($id)) !== null) {
+        if (($model = SpecialtyGroup::findOne($id)) !== null) {
             return $model;
         }
 

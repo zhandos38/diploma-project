@@ -2,15 +2,14 @@
 
 namespace frontend\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Specialty;
+use common\models\SpecialtyGroup;
 
 /**
- * SpecialtySearch represents the model behind the search form of `common\models\Specialty`.
+ * SepcialtyGroupSearch represents the model behind the search form of `common\models\SpecialtyGroup`.
  */
-class SpecialtySearch extends Specialty
+class SepcialtyGroupSearch extends SpecialtyGroup
 {
     /**
      * {@inheritdoc}
@@ -19,7 +18,7 @@ class SpecialtySearch extends Specialty
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['code', 'name'], 'safe'],
         ];
     }
 
@@ -39,10 +38,9 @@ class SpecialtySearch extends Specialty
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $id)
+    public function search($params)
     {
-        $query = Specialty::find()
-            ->where(['specialty_group_id' => $id]);
+        $query = SpecialtyGroup::find();
 
         // add conditions that should always apply here
 
@@ -63,7 +61,8 @@ class SpecialtySearch extends Specialty
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

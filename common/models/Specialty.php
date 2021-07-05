@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
- * @property integer|null $user_id
+ * @property string|null $code
+ * @property int|null $specialty_group_id
  *
  * @property Group[] $groups
  * @property Rup[] $rups
@@ -30,8 +31,8 @@ class Specialty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['user_id', 'integer'],
-            [['name'], 'string', 'max' => 255],
+            ['specialty_group_id', 'integer'],
+            [['name', 'code'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,6 +44,8 @@ class Specialty extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Наименование',
+            'code' => 'Код',
+            'specialty_group_id' => 'Группа',
         ];
     }
 
