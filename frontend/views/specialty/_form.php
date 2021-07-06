@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <?php LteBox::begin([
         'type' => LteConst::TYPE_SUCCESS,
         'isSolid' => true,
-        'boxTools' => Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['specialty-group/index'], ['class' => 'btn btn-danger btn-xs create_button']),
+        'boxTools' => Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['specialty-group/update', 'id' => $model->specialty_group_id], ['class' => 'btn btn-danger btn-xs create_button']),
         'tooltip' => 'this tooltip description',
         'title' =>  $this->title
     ]) ?>
