@@ -10,9 +10,10 @@ use Yii;
  * @property int $id
  * @property string|null $code
  * @property string|null $name
- * @property integer|null $user_id
+ * @property integer|null $training_direction_id
  *
  * @property Specialty[] $specialties
+ * @property TrainingDirection $trainingDirection
  */
 class SpecialtyGroup extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class SpecialtyGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['user_id', 'integer'],
+            [['training_direction_id'], 'integer'],
             [['code', 'name'], 'string', 'max' => 255],
         ];
     }
@@ -44,7 +45,6 @@ class SpecialtyGroup extends \yii\db\ActiveRecord
             'id' => 'ID',
             'code' => 'Код',
             'name' => 'Наименование',
-            'user_id' => 'Пользователь',
         ];
     }
 
@@ -58,8 +58,8 @@ class SpecialtyGroup extends \yii\db\ActiveRecord
         return $this->hasMany(Specialty::className(), ['specialty_group_id' => 'id']);
     }
 
-    public function getUser()
+    public function getTrainingDirection()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(TrainingDirection::className(), ['id' => 'training_direction_id']);
     }
 }

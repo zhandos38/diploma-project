@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'code',
             'name',
 
             [

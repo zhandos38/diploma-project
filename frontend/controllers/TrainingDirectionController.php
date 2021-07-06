@@ -2,19 +2,18 @@
 
 namespace frontend\controllers;
 
-use frontend\models\SpecialtySearch;
-use Yii;
-use common\models\SpecialtyGroup;
 use frontend\models\SepcialtyGroupSearch;
-use yii\db\Exception;
+use Yii;
+use common\models\TrainingDirection;
+use frontend\models\TrainingDirectionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SpecialtyGroupController implements the CRUD actions for SpecialtyGroup model.
+ * TrainingDirectionController implements the CRUD actions for TrainingDirection model.
  */
-class SpecialtyGroupController extends Controller
+class TrainingDirectionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +31,12 @@ class SpecialtyGroupController extends Controller
     }
 
     /**
-     * Lists all SpecialtyGroup models.
+     * Lists all TrainingDirection models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SepcialtyGroupSearch();
+        $searchModel = new TrainingDirectionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +46,7 @@ class SpecialtyGroupController extends Controller
     }
 
     /**
-     * Displays a single SpecialtyGroup model.
+     * Displays a single TrainingDirection model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,17 +59,16 @@ class SpecialtyGroupController extends Controller
     }
 
     /**
-     * Creates a new SpecialtyGroup model.
+     * Creates a new TrainingDirection model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($trainingDirectionId)
+    public function actionCreate()
     {
-        $model = new SpecialtyGroup();
-        $model->training_direction_id = $trainingDirectionId;
+        $model = new TrainingDirection();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['training-direction/update', 'id' => $model->training_direction_id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -79,7 +77,7 @@ class SpecialtyGroupController extends Controller
     }
 
     /**
-     * Updates an existing SpecialtyGroup model.
+     * Updates an existing TrainingDirection model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,7 +91,7 @@ class SpecialtyGroupController extends Controller
             return $this->redirect(['index']);
         }
 
-        $searchModel = new SpecialtySearch();
+        $searchModel = new SepcialtyGroupSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model->id);
 
         return $this->render('update', [
@@ -104,7 +102,7 @@ class SpecialtyGroupController extends Controller
     }
 
     /**
-     * Deletes an existing SpecialtyGroup model.
+     * Deletes an existing TrainingDirection model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,24 +112,21 @@ class SpecialtyGroupController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        if (!$model->delete()) {
-            throw new Exception("Specialty Group delete error");
-        }
+        $this->findModel($id)->delete();
 
-        return $this->redirect(['training-direction/update', 'id' => $model->training_direction_id]);
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the SpecialtyGroup model based on its primary key value.
+     * Finds the TrainingDirection model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SpecialtyGroup the loaded model
+     * @return TrainingDirection the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SpecialtyGroup::findOne($id)) !== null) {
+        if (($model = TrainingDirection::findOne($id)) !== null) {
             return $model;
         }
 

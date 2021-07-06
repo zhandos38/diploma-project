@@ -4,12 +4,12 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\SpecialtyGroup;
+use common\models\TrainingDirection;
 
 /**
- * SepcialtyGroupSearch represents the model behind the search form of `common\models\SpecialtyGroup`.
+ * TrainingDirectionSearch represents the model behind the search form of `common\models\TrainingDirection`.
  */
-class SepcialtyGroupSearch extends SpecialtyGroup
+class TrainingDirectionSearch extends TrainingDirection
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class SepcialtyGroupSearch extends SpecialtyGroup
     {
         return [
             [['id'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -38,10 +38,9 @@ class SepcialtyGroupSearch extends SpecialtyGroup
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $trainingDirectionId)
+    public function search($params)
     {
-        $query = SpecialtyGroup::find()
-            ->andWhere(['training_direction_id' => $trainingDirectionId]);
+        $query = TrainingDirection::find();
 
         // add conditions that should always apply here
 
@@ -62,8 +61,7 @@ class SepcialtyGroupSearch extends SpecialtyGroup
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

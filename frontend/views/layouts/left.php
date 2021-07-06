@@ -23,7 +23,7 @@
                     ['label' => 'Пед. нагрузка', 'icon' => 'fas fa-group', 'url' => ['teachers-load/index']],
                     ['label' => 'Группы', 'icon' => 'fas fa-group', 'url' => ['group/index']],
                     ['label' => 'Студенты', 'icon' => 'fas fa-user', 'url' => ['student/index']],
-                    ['label' => 'Образ. программа', 'icon' => 'fas fa-book', 'url' => ['specialty-group/index']],
+                    ['label' => 'Образ. программа', 'icon' => 'fas fa-book', 'url' => ['training-direction/index']],
                     ['label' => 'Допалнительно', 'options' => ['class' => 'header']],
                     ['label' => 'Дисциплины', 'icon' => 'fas fa-book', 'url' => ['subject/index']],
 //                    ['label' => 'Типы дисциплин', 'icon' => 'fas fa-book', 'url' => ['subject-type/index']],
