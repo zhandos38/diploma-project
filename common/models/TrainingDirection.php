@@ -54,9 +54,9 @@ class TrainingDirection extends \yii\db\ActiveRecord
     public static function getDegreeLabels()
     {
         return [
-          self::DEGREE_BACHELOR => 'Бакалавр',
-          self::DEGREE_MASTER => 'Магистрант',
-          self::DEGREE_DOCTOR => 'Доктор',
+          self::DEGREE_BACHELOR => 'Бакалавриат',
+          self::DEGREE_MASTER => 'Магистрантура',
+          self::DEGREE_DOCTOR => 'Докторантура',
         ];
     }
 
