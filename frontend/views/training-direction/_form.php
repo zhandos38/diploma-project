@@ -1,5 +1,6 @@
 <?php
 
+use common\models\TrainingDirection;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use yii\helpers\Html;
@@ -27,6 +28,8 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'degree')->dropDownList(TrainingDirection::getDegreeLabels()) ?>
         </div>
     </div>
 
