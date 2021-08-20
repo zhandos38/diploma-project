@@ -17,7 +17,7 @@ class TrainingDirectionSearch extends TrainingDirection
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'degree'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class TrainingDirectionSearch extends TrainingDirection
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'degree' => $this->degree,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

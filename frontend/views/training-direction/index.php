@@ -1,5 +1,6 @@
 <?php
 
+use common\models\TrainingDirection;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use yii\helpers\Html;
@@ -29,6 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'name',
+            [
+                'attribute' => 'degree',
+                'value' => function(TrainingDirection $model) {
+                    return $model->getDegreeLabel();
+                },
+                'filter' => TrainingDirection::getDegreeLabels()
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
