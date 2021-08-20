@@ -55,7 +55,7 @@ class TrainingDirection extends \yii\db\ActiveRecord
     {
         return [
           self::DEGREE_BACHELOR => 'Бакалавриат',
-          self::DEGREE_MASTER => 'Магистрантура',
+          self::DEGREE_MASTER => 'Магистратура',
           self::DEGREE_DOCTOR => 'Докторантура',
         ];
     }
