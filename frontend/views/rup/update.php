@@ -191,6 +191,12 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'dataProvider' => $dataProvider,
         'columns' => $columns,
         'filename' => 'РУП',
+        'contentBefore' => [
+            ['value' => 'ҚАЗАҚСТАН РЕСПУБЛИКАСЫНЫҢ БІЛІМ ЖӘНЕ ҒЫЛЫМ МИНИСТРЛІГІ', 'styleOptions' => [ExportMenu::FORMAT_EXCEL_X => ['font' => ['bold' => true, 'size' => '12px', 'align-items' => 'center']]]],
+            ['value' => 'ОҚУ ЖОСПАРЫ / УЧЕБНЫЙ ПЛАН / CURRICULUM'],
+            ['value' => 'Білім беру бағдарламасының коды және атауы: ' . $model->specialty->name],
+            ['value' => 'Оқу түрі: күндізгі,толық /  Форма обучения: очная, полная / Form of training: full-time, full'],
+        ]
     ]); ?>
 
     <?= GridView::widget([

@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'year',
     ];
+//    \PhpOffice\PhpSpreadsheet\Spreadsheet::
     ?>
 
     <?= ExportMenu::widget([
@@ -92,3 +93,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php LteBox::end() ?>
 
 </div>
+<?php
+$js =<<<JS
+    $()
+JS;
+
+$this->registerJs($js);
+?>
