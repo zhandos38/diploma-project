@@ -195,8 +195,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'contentBefore' => [
             ['value' => 'МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РЕСПУБЛИКИ КАЗАХСТАН', 'styleOptions' => [ExportMenu::FORMAT_EXCEL_X => ['font' => ['bold' => true, 'size' => '12px', 'align-items' => 'center']]]],
             ['value' => 'УЧЕБНЫЙ ПЛАН'],
-            ['value' => 'Код и классификация области образования: ' . $model->specialty->specialtyGroup->trainingDirection->name],
-            ['value' => 'Код и классификация направлений подготовки: ' . $model->specialty->specialtyGroup->name],
+            ['value' => 'Код и классификация области образования: ' . (!empty($model->specialty->specialtyGroup->trainingDirection) ? $model->specialty->specialtyGroup->trainingDirection->name : 'Не указано')],
+            ['value' => 'Код и классификация направлений подготовки: ' . (!empty($model->specialty->specialtyGroup) ? $model->specialty->specialtyGroup->name : 'Не указано')],
             ['value' => 'Код и наименование образовательной программы: ' . $model->specialty->name],
             ['value' => 'Форма обучения: ' . Helper::getMode($model->mode)],
             ['value' => 'Уровень подготовки: ' . $model->getDegree()],
