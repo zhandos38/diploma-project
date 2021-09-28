@@ -9,8 +9,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\TrainingDirection */
 
-$this->title = 'Обновить направление подготовки: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Направление подготовки', 'url' => ['index']];
+$this->title = 'Классификация области образования: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Классификация области образования', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'type' => LteConst::TYPE_INFO,
         'isSolid' => true,
         'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['specialty-group/create', 'trainingDirectionId' => $model->id], ['class' => 'btn btn-success btn-xs create_button']),
-        'title' => $this->title
+        'title' => 'Классификация направлений подготовки'
     ]) ?>
 
     <?= GridView::widget([

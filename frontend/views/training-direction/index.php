@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $searchModel frontend\models\TrainingDirectionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Направление подготовки';
+$this->title = 'Классификация области образования';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="training-direction-index">

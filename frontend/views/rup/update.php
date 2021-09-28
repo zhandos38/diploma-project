@@ -112,17 +112,19 @@ $this->params['breadcrumbs'][] = 'Обновить';
                 return $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
             },
             'label' => 'Всего часов',
-            'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
-            'pageSummary' => true
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
+            'pageSummary' => true,
+            'headerOptions' => ['style' => 'width:20px'],
         ],
         [
             'attribute' => 'amount_lecture',
-            'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+            'format' => 'raw',
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
             'pageSummary' => true
         ],
         [
             'attribute' => 'amount_lab',
-            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
             'pageSummary' => true
         ],
         [
@@ -132,12 +134,12 @@ $this->params['breadcrumbs'][] = 'Обновить';
         ],
         [
             'attribute' => 'amount_extra',
-            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
             'pageSummary' => true
         ],
         [
             'attribute' => 'amount_srop',
-            'contentOptions' => ['style' => 'width: 20px;', 'class' => 'text-center'],
+            'contentOptions' => ['style' => 'max-width: 20px;', 'class' => 'text-center'],
             'pageSummary' => true
         ],
         [
@@ -184,7 +186,6 @@ $this->params['breadcrumbs'][] = 'Обновить';
             ]
         ],
     ];
-
     ?>
 
     <?= ExportMenu::widget([
@@ -192,12 +193,15 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'columns' => $columns,
         'filename' => 'РУП',
         'contentBefore' => [
-            ['value' => 'ҚАЗАҚСТАН РЕСПУБЛИКАСЫНЫҢ БІЛІМ ЖӘНЕ ҒЫЛЫМ МИНИСТРЛІГІ', 'styleOptions' => [ExportMenu::FORMAT_EXCEL_X => ['font' => ['bold' => true, 'size' => '12px', 'align-items' => 'center']]]],
-            ['value' => 'ОҚУ ЖОСПАРЫ / УЧЕБНЫЙ ПЛАН / CURRICULUM'],
-            ['value' => 'Білім беру бағдарламасының коды және атауы: ' . $model->specialty->name],
-            ['value' => 'Оқу түрі: күндізгі,толық /  Форма обучения: очная, полная / Form of training: full-time, full'],
+            ['value' => 'МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РЕСПУБЛИКИ КАЗАХСТАН', 'styleOptions' => [ExportMenu::FORMAT_EXCEL_X => ['font' => ['bold' => true, 'size' => '12px', 'align-items' => 'center']]]],
+            ['value' => 'УЧЕБНЫЙ ПЛАН'],
+            ['value' => 'Код и классификация области образования: ' . $model->specialty->specialtyGroup->trainingDirection->name],
+            ['value' => 'Код и классификация направлений подготовки: ' . $model->specialty->specialtyGroup->name],
+            ['value' => 'Код и наименование образовательной программы: ' . $model->specialty->name],
+            ['value' => 'Форма обучения: ' . Helper::getMode($model->mode)],
+            ['value' => 'Уровень подготовки: ' . $model->getDegree()],
         ]
-    ]); ?>
+    ]) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

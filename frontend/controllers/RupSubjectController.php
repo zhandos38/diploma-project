@@ -82,16 +82,35 @@ class RupSubjectController extends Controller
     {
         $model = new RupSubject();
         $model->rup_id = $rup;
+        $model->amount_lab = 0;
+        $model->amount_practice = 0;
+        $model->amount_extra = 0;
+        $model->amount_srop = 0;
+        $model->amount_lecture = 0;
 
         if ($model->load(Yii::$app->request->post())) {
+            $flag = false;
             if (RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
                 Yii::$app->session->setFlash('error', 'Данный предмет уже добавлен');
+                $flag = true;
+            }
+
+            $model->code = $this->generateSubjectCode($model);
+
+            $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
+            $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
+            $textNumber = $this->creditCheck($credits, $hours);
+
+            if ($flag || $textNumber) {
+                if ($textNumber) {
+                    Yii::$app->session->setFlash('error', "Кредит {$credits}, всего часов должно быть {$textNumber}");
+                }
+
                 return $this->render('create', [
                     'model' => $model,
                 ]);
             }
 
-            $model->code = $this->generateSubjectCode($model);
 
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
@@ -117,7 +136,24 @@ class RupSubjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
+            $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
+            $textNumber = $this->creditCheck($credits, $hours);
+
+            if ($textNumber) {
+                Yii::$app->session->setFlash('error', "Кредит {$credits}, всего часов должно быть {$textNumber}");
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
+
+            if (!$model->save()) {
+                throw new Exception('Rup subject is not saved');
+            }
+
             return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
@@ -160,6 +196,36 @@ class RupSubjectController extends Controller
         }
 
         return $acronym  . ' ' . $model->getSemester() . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
+    }
+
+    public function creditCheck($credits, $hours) {
+        $textNumber = null;
+        if ($credits === 3.0 && ($hours !== 90)) {
+            $textNumber = 90;
+        }
+        if ($credits === 4.0 && ($hours !== 120)) {
+            $textNumber = 120;
+        }
+        if ($credits === 5.0 && ($hours !== 150)) {
+            $textNumber = 150;
+        }
+        if ($credits === 6.0 && ($hours > 180 || $hours < 180)) {
+            $textNumber = 180;
+        }
+        if ($credits === 7.0 && ($hours > 210 || $hours < 210)) {
+            $textNumber = 210;
+        }
+        if ($credits === 8.0 && ($hours > 240 || $hours < 240)) {
+            $textNumber = 240;
+        }
+        if ($credits === 9.0 && ($hours > 270 || $hours < 270)) {
+            $textNumber = 270;
+        }
+        if ($credits === 10.0 && ($hours > 300 || $hours < 300)) {
+            $textNumber = 300;
+        }
+
+        return $textNumber;
     }
 
     /**

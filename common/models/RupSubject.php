@@ -57,7 +57,7 @@ class RupSubject extends \yii\db\ActiveRecord
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
 
-            [['component_item_id', 'module_item_id'], 'required']
+            [['component_item_id', 'module_item_id', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'amount_srop'], 'required']
         ];
     }
 

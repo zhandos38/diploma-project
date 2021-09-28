@@ -73,9 +73,6 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'amount_extra')->textInput() ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'amount_extra')->textInput() ?>
-        </div>
-        <div class="col-md-4">
             <?= $form->field($model, 'amount_srop')->textInput() ?>
         </div>
         <div class="col-md-4">
