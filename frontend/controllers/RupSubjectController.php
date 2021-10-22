@@ -90,20 +90,20 @@ class RupSubjectController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $flag = false;
-            if (RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
+
+            // checking for duplicate
+            if (!$model->subject->is_repeat && RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
                 Yii::$app->session->setFlash('error', 'Данный предмет уже добавлен');
                 $flag = true;
             }
 
             $model->code = $this->generateSubjectCode($model);
 
-            $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
-            $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
-            $textNumber = $this->creditCheck($credits, $hours);
+            $textNumber = $this->creditCheck($model);
 
             if ($flag || $textNumber) {
                 if ($textNumber) {
-                    Yii::$app->session->setFlash('error', "Кредит {$credits}, всего часов должно быть {$textNumber}");
+                    Yii::$app->session->setFlash('error', "Всего часов должно быть {$textNumber}");
                 }
 
                 return $this->render('create', [
@@ -137,12 +137,10 @@ class RupSubjectController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
-            $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
-            $textNumber = $this->creditCheck($credits, $hours);
+            $textNumber = $this->creditCheck($model);
 
             if ($textNumber) {
-                Yii::$app->session->setFlash('error', "Кредит {$credits}, всего часов должно быть {$textNumber}");
+                Yii::$app->session->setFlash('error', "Всего часов должно быть {$textNumber}");
 
                 return $this->render('update', [
                     'model' => $model,
@@ -198,7 +196,10 @@ class RupSubjectController extends Controller
         return $acronym  . ' ' . $model->getSemester() . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
     }
 
-    public function creditCheck($credits, $hours) {
+    public function creditCheck($model) {
+        $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
+        $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
+
         $textNumber = null;
         if ($credits === 3.0 && ($hours !== 90)) {
             $textNumber = 90;
