@@ -12,28 +12,24 @@ use yii\grid\GridView;
 $this->title = 'Виды предметов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="subject-type-index">
+<div class="subject-type-index card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_INFO,
-        'isSolid' => true,
-        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' => $this->title
-    ]) ?>
+    <div class="card-header">
+        <?= Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']) ?>
+    </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
+                'name',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php LteBox::end() ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    </div>
 
 </div>

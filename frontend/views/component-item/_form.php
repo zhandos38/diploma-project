@@ -10,26 +10,22 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="component-item-form">
+<div class="component-item-form card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_SUCCESS,
-        'isSolid' => true,
-        'boxTools' => Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['component/update', 'id' => $model->component_id], ['class' => 'btn btn-danger btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' =>  $this->title
-    ]) ?>
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    <div class="card-header">
+        <?= Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['component/update', 'id' => $model->component_id], ['class' => 'btn btn-danger btn-xs create_button']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <div class="card-body">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?php LteBox::end() ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+        <div class="form-group">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
 
 </div>

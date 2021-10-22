@@ -13,42 +13,38 @@ use yii\grid\GridView;
 $this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="user-index card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_INFO,
-        'isSolid' => true,
-        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' => 'Пользователи'
-    ]) ?>
+    <div class="card-header">
+        <?= Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']) ?>
+    </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'username',
-            'email:email',
-            'role',
-            [
-                'attribute' => 'status',
-                'value' => function(User $model) {
-                    return $model->getStatusLabel();
-                }
+                'username',
+                'email:email',
+                'role',
+                [
+                    'attribute' => 'status',
+                    'value' => function(User $model) {
+                        return $model->getStatusLabel();
+                    }
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'value' => function(User $model) {
+                        return date('m.d.Y H:i', $model->created_at);
+                    }
+                ],
+
+                ['class' => 'yii\grid\ActionColumn'],
             ],
-            [
-                'attribute' => 'created_at',
-                'value' => function(User $model) {
-                    return date('m.d.Y H:i', $model->created_at);
-                }
-            ],
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php LteBox::end()?>
+        ]) ?>
+    </div>
 
 </div>

@@ -181,19 +181,18 @@ class RupSubjectController extends Controller
      * @param $model RupSubject
      * @return string
      */
-    public function generateSubjectCode($model) {
-        $moduleNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'module_item_id' => $model->module_item_id])->count();
-        $componentNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'component_item_id' => $model->component_item_id])->count();
-//        VarDumper::dump($componentNumber,10,1); die;
+    public function actionGetSubjectCode()
+    {
+        $data = Yii::$app->request->get();
+        $rup_id = $data['rup_id'];
+        $component_item_id = $data['component_item_id'];
+        $module_module_id = $data['module_item_id'];
+        $semester = $data['semester'];
 
-        $words = preg_split("/[\s,_-]+/", $model->subject->name);
-        $acronym = "";
+        $moduleNumber = RupSubject::find()->where(['rup_id' => $rup_id, 'module_item_id' => $module_module_id])->count();
+        $componentNumber = RupSubject::find()->where(['rup_id' => $rup_id, 'component_item_id' => $component_item_id])->count();
 
-        foreach ($words as $w) {
-            $acronym .= mb_substr($w, 0, 1);
-        }
-
-        return $acronym  . ' ' . $model->getSemester() . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
+        return $semester . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
     }
 
     public function creditCheck($model) {

@@ -14,50 +14,45 @@ use yii\grid\GridView;
 $this->title = 'Посты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="post-index">
+<div class="post-index card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_INFO,
-        'isSolid' => true,
-        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' => $this->title
-    ]) ?>
+    <div class="card-header">
+        <?= Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']) ?>
+    </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'title',
-            'img',
-            [
-                'attribute' => 'created_at',
-                'value' => function(Post $model) {
-                    return date('d-m-Y H:i', $model->created_at);
-                },
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'createTimeRange',
-                    'convertFormat' => true,
-                    'pjaxContainerId' => 'crud-datatable-pjax',
-                    'pluginOptions' => [
-                        'locale' => [
-                            'format'=>'Y-m-d'
-                        ],
-                        'convertFormat'=>true
-                    ]
-                ]),
+                'id',
+                'title',
+                'img',
+                [
+                    'attribute' => 'created_at',
+                    'value' => function(Post $model) {
+                        return date('d-m-Y H:i', $model->created_at);
+                    },
+                    'filter' => DateRangePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'createTimeRange',
+                        'convertFormat' => true,
+                        'pjaxContainerId' => 'crud-datatable-pjax',
+                        'pluginOptions' => [
+                            'locale' => [
+                                'format'=>'Y-m-d'
+                            ],
+                            'convertFormat'=>true
+                        ]
+                    ]),
+                ],
+
+
+                ['class' => 'yii\grid\ActionColumn'],
             ],
-
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php LteBox::end() ?>
-
+        ]) ?>
+    </div>
 
 </div>

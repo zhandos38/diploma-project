@@ -10,31 +10,27 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="specialty-form">
+<div class="specialty-form card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_SUCCESS,
-        'isSolid' => true,
-        'boxTools' => Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['specialty-group/update', 'id' => $model->specialty_group_id], ['class' => 'btn btn-danger btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' =>  $this->title
-    ]) ?>
+    <div class="card-header">
+        <?= Html::a('Назад <i class="fas fa-arrow-alt-circle-left"></i>', ['specialty-group/update', 'id' => $model->specialty_group_id], ['class' => 'btn btn-danger btn-xs create_button']) ?>
+    </div>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="card-body">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
-        <div class="col-md-3">
-            <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <div class="row">
+            <div class="col-md-3">
+                <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            </div>
         </div>
+
+        <div class="form-group">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-    <?php LteBox::end() ?>
 
 </div>

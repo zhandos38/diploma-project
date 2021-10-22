@@ -118,6 +118,23 @@ class RupSubject extends \yii\db\ActiveRecord
         return $this->hasMany(TeachersLoad::className(), ['rup_subject_id' => 'id']);
     }
 
+    public static function getSemesterStatic($semester)
+    {
+        $course = 0;
+        $semester = (int)$semester;
+        if ($semester === 1 || $semester === 2) {
+            $course = 1;
+        } else if ($semester === 3 || $semester === 4) {
+            $course = 2;
+        } else if ($semester === 5 || $semester === 6) {
+            $course = 3;
+        } else if ($semester === 7 || $semester === 8) {
+            $course = 4;
+        }
+
+        return $course;
+    }
+
     public function getSemester()
     {
         $course = 0;

@@ -10,29 +10,26 @@ use yii\grid\GridView;
 $this->title = 'Component Items';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="component-item-index">
+<div class="component-item-index card">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <div class="card-header">
         <?= Html::a('Create Component Item', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'name',
+                'component_id',
 
-            'id',
-            'name',
-            'component_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]) ?>
+    </div>
 
 </div>
