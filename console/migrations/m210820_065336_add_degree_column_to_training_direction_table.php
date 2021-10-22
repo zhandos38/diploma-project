@@ -21,5 +21,7 @@ class m210820_065336_add_degree_column_to_training_direction_table extends Migra
     public function safeDown()
     {
         echo "m210820_065336_add_degree_column_to_training_direction_table can not be reverted";
+
+        return false;
     }
 }

@@ -41,6 +41,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'is_practice')->checkbox() ?>
 
+    <?= $form->field($model, 'is_repeat')->checkbox() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
