@@ -97,8 +97,6 @@ class RupSubjectController extends Controller
                 $flag = true;
             }
 
-            $model->code = $this->generateSubjectCode($model);
-
             $textNumber = $this->creditCheck($model);
 
             if ($flag || $textNumber) {
