@@ -44,7 +44,7 @@ class Helper
         return $semester;
     }
 
-    const MODE_EVENING = 0;
+    const MODE_FAST = 0;
     const MODE_DAY = 1;
     const MODE_SHORT = 2;
 
@@ -53,6 +53,7 @@ class Helper
         return [
             self::MODE_DAY => 'Очная форма',
             self::MODE_SHORT => 'Очно сокращенная',
+            self::MODE_FAST => 'Ускоренный',
         ];
     }
 

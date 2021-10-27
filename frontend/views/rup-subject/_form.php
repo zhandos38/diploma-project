@@ -82,6 +82,9 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'is_exam')->checkbox() ?>
             </div>
             <div class="col-md-4">
+                <?= $form->field($model, 'is_exam_diff')->checkbox() ?>
+            </div>
+            <div class="col-md-4">
                 <div class="input-group">
                     <?= $form->field($model, 'code')->textInput(['id' => 'code-input-id']) ?>
                     <div class="input-group-append">

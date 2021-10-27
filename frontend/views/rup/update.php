@@ -169,6 +169,16 @@ $this->params['breadcrumbs'][] = 'Обновить';
                     1 => "Да"
                 ]
             ],
+            [
+                'attribute' => 'is_exam_diff',
+                'value' => function(RupSubject $model) {
+                    return $model->is_exam_diff ? "Да" : "Нет";
+                },
+                'filter' => [
+                    0 => "Нет",
+                    1 => "Да"
+                ]
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

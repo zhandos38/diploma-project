@@ -24,6 +24,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $is_course_work
  * @property int|null $is_gos
  * @property int|null $is_exam
+ * @property int|null $is_exam_diff
  *
  * @property Rup $rup
  * @property Subject $subject
@@ -51,13 +52,14 @@ class RupSubject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'lang', 'is_course_work', 'is_gos', 'is_exam', 'component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer'],
+            [['rup_id', 'subject_id', 'semester', 'amount_lecture', 'amount_practice', 'amount_lab', 'lang', 'component_id', 'component_item_id', 'module_id', 'module_item_id'], 'integer'],
             ['code', 'string'],
             [['amount_extra', 'amount_srop'], 'number'],
             [['rup_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rup::className(), 'targetAttribute' => ['rup_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
 
-            [['component_item_id', 'module_item_id', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'amount_srop'], 'required']
+            [['component_item_id', 'module_item_id', 'amount_lecture', 'amount_practice', 'amount_lab', 'amount_extra', 'amount_srop'], 'required'],
+            [['is_course_work', 'is_gos', 'is_exam', 'is_exam_diff'], 'boolean'],
         ];
     }
 
@@ -81,9 +83,10 @@ class RupSubject extends \yii\db\ActiveRecord
             'amount_lab' => 'Кол-во часов лабораторных',
             'amount_extra' => 'Кол-во часов внеаудиторные',
             'amount_srop' => 'Кол-во часов СРОП',
-            'is_course_work' => 'Курсовая работа',
+            'is_course_work' => 'Курсовая работа/Проект',
             'is_gos' => 'Гос. экзамен',
             'is_exam' => 'Экзамен',
+            'is_exam_diff' => 'Дифф. зачет',
             'code' => 'Код дисциплины'
         ];
     }
