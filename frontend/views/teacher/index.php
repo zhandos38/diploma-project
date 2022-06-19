@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 Modal::begin([
-    'header' => '<h4>QrCode</h4>',
+    'title' => '<h4>QrCode</h4>',
     'id' => 'modal-qrcode',
     'size' => 'modal-sm'
 ]);
