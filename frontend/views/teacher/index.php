@@ -6,6 +6,7 @@ use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\TeacherSearch */
@@ -57,7 +58,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'state',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{qrcode} {view} {update} {delete}',
+                'buttons' => [
+                    'qrcode' => function ($url, $model, $key) {
+                        return Html::button('<span class="fa fa-image"></span>', [
+                            'class' => 'employee-qrcode-btn btn btn-info',
+                            'data-id' => $model->id
+                        ]);
+                    }
+                ]
+            ],
         ] ?>
 
         <?= ExportMenu::widget([
@@ -73,3 +85,24 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+<?php
+Modal::begin([
+    'header' => '<h4>QrCode</h4>',
+    'id' => 'modal-qrcode',
+    'size' => 'modal-sm'
+]);
+
+echo '<div id="modal-qrcode__content"></div>';
+
+Modal::end();
+
+$js =<<<JS
+$('.employee-qrcode-btn').on('click', function() {
+    $('#modal-qrcode').modal('show')
+    .find('#modal-qrcode__content')
+    .load('/teacher/get-qrcode', {id: $( this ).data('id')});
+});
+JS;
+
+$this->registerJs($js);
+?>
