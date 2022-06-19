@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Employee;
 use Yii;
 use common\models\Teacher;
 use frontend\models\TeacherSearch;
@@ -118,6 +119,14 @@ class TeacherController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetQrcode()
+    {
+        $model = Teacher::findOne(['id' => Yii::$app->request->post('id')]);
+        return $this->renderAjax('_qrcode', [
+            'model' => $model
+        ]);
     }
 
     /**
