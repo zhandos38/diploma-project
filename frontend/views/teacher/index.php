@@ -4,7 +4,6 @@ use common\models\Teacher;
 use insolita\wgadminlte\LteBox;
 use insolita\wgadminlte\LteConst;
 use kartik\export\ExportMenu;
-use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -15,16 +14,13 @@ use yii\grid\GridView;
 $this->title = 'Преподаватели';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-    <div class="teacher-index">
+<div class="teacher-index card">
 
-        <?php LteBox::begin([
-            'type' => LteConst::TYPE_INFO,
-            'isSolid' => true,
-            'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']),
-            'tooltip' => 'this tooltip description',
-            'title' => $this->title
-        ]) ?>
+    <div class="card-header">
+        <?= Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']) ?>
+    </div>
 
+    <div class="card-body">
         <?php $columns = [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -60,52 +56,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             'state',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{qrcode} {view} {update} {delete}',
-                'buttons' => [
-                    'qrcode' => function ($url, $model, $key) {
-                        return Html::button('<span class="fa fa-image"></span>', [
-                            'class' => 'employee-qrcode-btn btn btn-info',
-                            'data-id' => $model->id
-                        ]);
-                    }
-                ]
-            ],
+
+            ['class' => 'yii\grid\ActionColumn'],
         ] ?>
 
         <?= ExportMenu::widget([
             'dataProvider' => $dataProvider,
             'columns' => $columns
-        ]); ?>
+        ]) ?>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => $columns,
-        ]); ?>
-
-        <?php LteBox::end() ?>
-
+        ]) ?>
     </div>
-<?php
-Modal::begin([
-    'header' => '<h4>QrCode</h4>',
-    'id' => 'modal-qrcode',
-    'size' => 'modal-sm'
-]);
 
-echo '<div id="modal-qrcode__content"></div>';
-
-Modal::end();
-
-$js =<<<JS
-$('.employee-qrcode-btn').on('click', function() {
-    $('#modal-qrcode').modal('show')
-    .find('#modal-qrcode__content')
-    .load('/teacher/get-qrcode', {id: $( this ).data('id')});
-});
-JS;
-
-$this->registerJs($js);
-?>
+</div>
