@@ -10,23 +10,26 @@ use yii\grid\GridView;
 $this->title = 'Module Items';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="module-item-index">
+<div class="module-item-index card">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'module_id',
+                'id',
+                'name',
+                'module_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]) ?>
+    </div>
 
 </div>

@@ -104,4 +104,9 @@ class Rup extends \yii\db\ActiveRecord
     {
         return ArrayHelper::getValue(self::getLanguages(), $this->lang);
     }
+
+    public function getDegree()
+    {
+        return ArrayHelper::getValue(Helper::getDegrees(), $this->degree);
+    }
 }

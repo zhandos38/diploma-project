@@ -46,8 +46,8 @@ $fieldOptions2 = [
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомни меня') ?>
             </div>
-            <div class="col-xs-4">
-                <?= Html::submitButton('Вход', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+            <div class="col-md-12">
+                <?= Html::submitButton('Вход', ['class' => 'btn btn-primary btn-block btn-flat w-100', 'name' => 'login-button']) ?>
             </div>
         </div>
         <div class="row">

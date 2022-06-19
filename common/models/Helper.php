@@ -44,13 +44,21 @@ class Helper
         return $semester;
     }
 
+    const MODE_FAST = 0;
     const MODE_DAY = 1;
-    const MODE_EVENING = 0;
+    const MODE_SHORT = 2;
 
     public static function getModes()
     {
         return [
-            self::MODE_DAY => 'Очная форма'
+            self::MODE_DAY => 'Очная форма',
+            self::MODE_SHORT => 'Очно сокращенная',
+            self::MODE_FAST => 'Ускоренный',
         ];
+    }
+
+    public static function getMode($mode)
+    {
+        return ArrayHelper::getValue(self::getModes(), $mode);
     }
 }

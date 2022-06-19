@@ -13,39 +13,33 @@ use yii\helpers\Url;
 $this->title = 'Циклы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="component-index">
+<div class="component-index card">
 
-    <?php LteBox::begin([
-        'type' => LteConst::TYPE_INFO,
-        'isSolid' => true,
-        'boxTools'=> Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']),
-        'tooltip' => 'this tooltip description',
-        'title' => $this->title
-    ]) ?>
+    <div class="card-header">
+        <?= Html::a('Добавить <i class="fa fa-plus-circle"></i>', ['create'], ['class' => 'btn btn-success btn-xs create_button']) ?>
+    </div>
+    <div class="card-body">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                'name',
 
-            'name',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete}',
-                'buttons' => [
-                    'update' => function($url, $model) {
-                        return Html::a('<span class="fa fa-pencil"></span>', Url::to(['update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
-                    },
-                    'delete' => function($url, $model) {
-                        return Html::a('<span class="fa fa-trash"></span>', Url::to(['delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
-                    },
-                ]
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{update} {delete}',
+                    'buttons' => [
+                        'update' => function($url, $model) {
+                            return Html::a('<span class="fa fa-edit"></span>', Url::to(['update', 'id' => $model->id]), ['title' => 'обновить', 'class' => 'btn btn-info']);
+                        },
+                        'delete' => function($url, $model) {
+                            return Html::a('<span class="fa fa-trash"></span>', Url::to(['delete', 'id' => $model->id]), ['title' => 'удалить', 'class' => 'btn btn-danger', 'data-confirm' => 'Вы действительно хотите удалить?', 'data-method' => 'post']);
+                        },
+                    ]
+                ],
             ],
-        ],
-    ]); ?>
-
-    <?php LteBox::end() ?>
-
+        ]) ?>
+    </div>
 </div>

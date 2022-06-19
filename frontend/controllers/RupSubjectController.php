@@ -82,16 +82,33 @@ class RupSubjectController extends Controller
     {
         $model = new RupSubject();
         $model->rup_id = $rup;
+        $model->amount_lab = 0;
+        $model->amount_practice = 0;
+        $model->amount_extra = 0;
+        $model->amount_srop = 0;
+        $model->amount_lecture = 0;
 
         if ($model->load(Yii::$app->request->post())) {
-            if (RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
+            $flag = false;
+
+            // checking for duplicate
+            if (!$model->subject->is_repeat && RupSubject::findOne(['rup_id' => $model->rup_id, 'subject_id' => $model->subject_id])) {
                 Yii::$app->session->setFlash('error', 'Данный предмет уже добавлен');
+                $flag = true;
+            }
+
+            $textNumber = $this->creditCheck($model);
+
+            if ($flag || $textNumber) {
+                if ($textNumber) {
+                    Yii::$app->session->setFlash('error', "Всего часов должно быть {$textNumber}");
+                }
+
                 return $this->render('create', [
                     'model' => $model,
                 ]);
             }
 
-            $model->code = $this->generateSubjectCode($model);
 
             if (!$model->save()) {
                 throw new Exception('Rup subject is not saved');
@@ -117,7 +134,22 @@ class RupSubjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $textNumber = $this->creditCheck($model);
+
+            if ($textNumber) {
+                Yii::$app->session->setFlash('error', "Всего часов должно быть {$textNumber}");
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
+
+            if (!$model->save()) {
+                throw new Exception('Rup subject is not saved');
+            }
+
             return $this->redirect(['rup/update', 'id' => $model->rup_id]);
         }
 
@@ -147,19 +179,51 @@ class RupSubjectController extends Controller
      * @param $model RupSubject
      * @return string
      */
-    public function generateSubjectCode($model) {
-        $moduleNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'module_item_id' => $model->module_item_id])->count();
-        $componentNumber = RupSubject::find()->where(['rup_id' => $model->rup_id, 'component_item_id' => $model->component_item_id])->count();
-//        VarDumper::dump($componentNumber,10,1); die;
+    public function actionGetSubjectCode()
+    {
+        $data = Yii::$app->request->get();
+        $rup_id = $data['rup_id'];
+        $component_item_id = $data['component_item_id'];
+        $module_module_id = $data['module_item_id'];
+        $semester = $data['semester'];
 
-        $words = preg_split("/[\s,_-]+/", $model->subject->name);
-        $acronym = "";
+        $moduleNumber = RupSubject::find()->where(['rup_id' => $rup_id, 'module_item_id' => $module_module_id])->count();
+        $componentNumber = RupSubject::find()->where(['rup_id' => $rup_id, 'component_item_id' => $component_item_id])->count();
 
-        foreach ($words as $w) {
-            $acronym .= mb_substr($w, 0, 1);
+        return $semester . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
+    }
+
+    public function creditCheck($model) {
+        $hours = $model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop;
+        $credits = round(($model->amount_lecture + $model->amount_practice + $model->amount_lab + $model->amount_extra + $model->amount_srop)/30);
+
+        $textNumber = null;
+        if ($credits === 3.0 && ($hours !== 90)) {
+            $textNumber = 90;
+        }
+        if ($credits === 4.0 && ($hours !== 120)) {
+            $textNumber = 120;
+        }
+        if ($credits === 5.0 && ($hours !== 150)) {
+            $textNumber = 150;
+        }
+        if ($credits === 6.0 && ($hours > 180 || $hours < 180)) {
+            $textNumber = 180;
+        }
+        if ($credits === 7.0 && ($hours > 210 || $hours < 210)) {
+            $textNumber = 210;
+        }
+        if ($credits === 8.0 && ($hours > 240 || $hours < 240)) {
+            $textNumber = 240;
+        }
+        if ($credits === 9.0 && ($hours > 270 || $hours < 270)) {
+            $textNumber = 270;
+        }
+        if ($credits === 10.0 && ($hours > 300 || $hours < 300)) {
+            $textNumber = 300;
         }
 
-        return $acronym  . ' ' . $model->getSemester() . ++$moduleNumber . sprintf("%02d", ++$componentNumber);
+        return $textNumber;
     }
 
     /**

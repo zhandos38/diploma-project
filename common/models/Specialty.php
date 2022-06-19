@@ -14,6 +14,7 @@ use Yii;
  *
  * @property Group[] $groups
  * @property Rup[] $rups
+ * @property SpecialtyGroup $specialtyGroup
  */
 class Specialty extends \yii\db\ActiveRecord
 {
@@ -67,5 +68,10 @@ class Specialty extends \yii\db\ActiveRecord
     public function getRups()
     {
         return $this->hasMany(Rup::className(), ['specialty_id' => 'id']);
+    }
+
+    public function getSpecialtyGroup()
+    {
+        return $this->hasOne(SpecialtyGroup::className(), ['id' => 'specialty_group_id']);
     }
 }

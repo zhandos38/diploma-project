@@ -14,8 +14,8 @@ class m201014_171220_drop_education_and_direction_columns_in_rup_table extends M
      */
     public function safeUp()
     {
-        $this->dropColumn($this->tableName, 'direction_id');
-        $this->dropColumn($this->tableName, 'education_id');
+        $this->dropColumn($this->tableName, 'direction');
+        $this->dropColumn($this->tableName, 'education');
     }
 
     /**

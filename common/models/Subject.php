@@ -13,6 +13,7 @@ use Yii;
  * @property string|null $name
  * @property int|null $is_practice
  * @property int|null $user_id
+ * @property boolean|null $is_repeat
  *
  * @property RupSubject[] $rupSubjects
  * @property Component $componentItem
@@ -43,7 +44,8 @@ class Subject extends \yii\db\ActiveRecord
             [['module_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModuleItem::className(), 'targetAttribute' => ['module_item_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
 
-            [['name'], 'required']
+            [['name'], 'required'],
+            ['is_repeat', 'boolean'],
         ];
     }
 
@@ -61,6 +63,7 @@ class Subject extends \yii\db\ActiveRecord
             'name' => 'Наименование',
             'code' => 'Код',
             'is_practice' => 'Практика',
+            'is_repeat' => 'Повторяющийся предмет',
         ];
     }
 

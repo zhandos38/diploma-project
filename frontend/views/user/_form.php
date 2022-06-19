@@ -12,22 +12,24 @@ use yii\widgets\MaskedInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-form">
+<div class="user-form card">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <div class="card-body">
+            <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'username')->textInput() ?>
+            <?= $form->field($model, 'username')->textInput() ?>
 
-        <?= $form->field($model, 'email')->textInput() ?>
+            <?= $form->field($model, 'email')->textInput() ?>
 
-        <?= $form->field($model, 'role')->dropDownList(User::getRoles(), ['prompt' => 'Указать роль']) ?>
+            <?= $form->field($model, 'role')->dropDownList(User::getRoles(), ['prompt' => 'Указать роль']) ?>
 
-        <?= $form->field($model, 'status')->dropDownList(User::getStatuses(), ['prompt' => 'Указать статус']) ?>
+            <?= $form->field($model, 'status')->dropDownList(User::getStatuses(), ['prompt' => 'Указать статус']) ?>
 
-        <div class="form-group">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <div class="form-group">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
         </div>
-
-        <?php ActiveForm::end(); ?>
 
 </div>
